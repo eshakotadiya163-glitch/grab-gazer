@@ -1,184 +1,261 @@
-import { useMemo, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { ProductCard } from "@/components/ProductCard";
-import { products, BRANDS, CATEGORIES, type Brand, type Category } from "@/lib/data";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { z } from "zod";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, Filter, X, SlidersHorizontal, PackageOpen } from "lucide-react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import { ProductCard } from "@/components/ProductCard";
+import { products, BRANDS, CATEGORIES } from "@/lib/data";
+
+const searchSchema = z.object({
+  q: z.string().optional(),
+  brand: z.string().optional(),
+  category: z.string().optional(),
+  minPrice: z.number().optional(),
+  maxPrice: z.number().optional(),
+});
 
 export const Route = createFileRoute("/shop")({
+  validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Shop — The Woman's Company & Kimirica" },
-      {
-        name: "description",
-        content:
-          "Shop multi-brand women's beauty: face care, fragrances, body lotions, creams, washes, mists and gift sets from The Woman Company and Kimirica.",
-      },
-      { property: "og:title", content: "Shop — The Woman's Company & Kimirica" },
-      {
-        property: "og:description",
-        content: "Body lotions, creams, washes, mists, fragrances and gift sets from your favourite brands.",
-      },
+      { title: "Shop — The Woman's Company" },
+      { name: "description", content: "Shop our full range of feminine hygiene, body care, and skin care products." },
     ],
   }),
   component: ShopPage,
 });
 
-const PRICE_BUCKETS = [
-  { id: "all", label: "All prices", min: 0, max: Infinity },
-  { id: "u300", label: "Under ₹300", min: 0, max: 299 },
-  { id: "300-500", label: "₹300 – ₹500", min: 300, max: 500 },
-  { id: "500-800", label: "₹500 – ₹800", min: 500, max: 800 },
-  { id: "800p", label: "₹800 & above", min: 800, max: Infinity },
-] as const;
-
 function ShopPage() {
-  const [brand, setBrand] = useState<Brand | "all">("all");
-  const [category, setCategory] = useState<Category | "all">("all");
-  const [priceId, setPriceId] = useState<(typeof PRICE_BUCKETS)[number]["id"]>("all");
+  const search = Route.useSearch();
+  const navigate = useNavigate({ from: "/shop" });
+  
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const bucket = PRICE_BUCKETS.find((b) => b.id === priceId)!;
+  // Filter products based on URL search params
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => {
+      if (search.q && !p.name.toLowerCase().includes(search.q.toLowerCase()) && !p.category?.toLowerCase().includes(search.q.toLowerCase())) return false;
+      if (search.brand && p.brand !== search.brand) return false;
+      if (search.category && p.category !== search.category) return false;
+      if (search.minPrice && p.price < search.minPrice) return false;
+      if (search.maxPrice && p.price > search.maxPrice) return false;
+      return true;
+    });
+  }, [search]);
 
-  const filtered = useMemo(
-    () =>
-      products.filter(
-        (p) =>
-          (brand === "all" || p.brand === brand) &&
-          (category === "all" || p.category === category) &&
-          p.price >= bucket.min &&
-          p.price <= bucket.max,
-      ),
-    [brand, category, bucket],
-  );
-
-  const clear = () => {
-    setBrand("all");
-    setCategory("all");
-    setPriceId("all");
+  const updateFilters = (updates: Partial<typeof search>) => {
+    navigate({
+      search: (prev) => {
+        const next = { ...prev, ...updates };
+        // Remove empty strings/undefined
+        Object.keys(next).forEach((key) => {
+          const k = key as keyof typeof next;
+          if (next[k] === "" || next[k] === undefined) {
+            delete next[k];
+          }
+        });
+        return next;
+      },
+    });
   };
 
-  const hasFilters = brand !== "all" || category !== "all" || priceId !== "all";
+  const clearFilters = () => {
+    navigate({ search: {} });
+  };
+
+  const activeFilterCount = Object.keys(search).length;
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background pb-20">
+      {/* Hero section */}
       <section className="bg-blush py-12 lg:py-20">
         <div className="container-tight text-center">
-          <span className="text-sm font-medium uppercase tracking-wider text-sage-deep">Shop</span>
-          <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-semibold text-foreground sm:text-5xl">
-            All Products
+          <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold text-foreground sm:text-5xl lg:text-6xl">
+            Shop All
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Curated beauty from The Woman Company and Kimirica — face, fragrance, and body care for every ritual.
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            Safe, sustainable, and toxin-free products designed for your everyday care. 
+            From intimate hygiene to nourishing skincare.
           </p>
         </div>
       </section>
 
-      <section className="py-10 lg:py-16">
-        <div className="container-tight grid gap-8 lg:grid-cols-[240px_1fr]">
-          {/* Filters */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-2xl border border-border bg-card p-5">
+      <section className="py-8 lg:py-12">
+        <div className="container-tight">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+            
+            {/* Mobile filter toggle */}
+            <div className="flex items-center justify-between lg:hidden">
+              <p className="font-medium text-foreground">{filteredProducts.length} products</p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setMobileFiltersOpen(true)}
+                className="gap-2"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+              </Button>
+            </div>
+
+            {/* Sidebar filters (Desktop) */}
+            <aside className="hidden w-64 shrink-0 lg:block space-y-8 sticky top-24">
               <div className="flex items-center justify-between">
-                <h2 className="font-[family-name:var(--font-display)] text-lg font-semibold">Filters</h2>
-                {hasFilters && (
-                  <button
-                    onClick={clear}
-                    className="inline-flex items-center gap-1 text-xs font-medium text-sage-deep hover:underline"
-                  >
-                    <X className="h-3 w-3" /> Clear
+                <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold">Filters</h2>
+                {activeFilterCount > 0 && (
+                  <button onClick={clearFilters} className="text-sm font-medium text-sage-deep hover:underline">
+                    Clear all
                   </button>
                 )}
               </div>
-
-              <FilterGroup label="Brand">
-                <FilterChip active={brand === "all"} onClick={() => setBrand("all")}>All</FilterChip>
-                {BRANDS.map((b) => (
-                  <FilterChip key={b} active={brand === b} onClick={() => setBrand(b)}>
-                    {b}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup label="Category">
-                <FilterChip active={category === "all"} onClick={() => setCategory("all")}>All</FilterChip>
-                {CATEGORIES.map((c) => (
-                  <FilterChip key={c} active={category === c} onClick={() => setCategory(c)}>
-                    {c}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup label="Price">
-                {PRICE_BUCKETS.map((b) => (
-                  <FilterChip key={b.id} active={priceId === b.id} onClick={() => setPriceId(b.id)}>
-                    {b.label}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-            </div>
-          </aside>
-
-          {/* Grid */}
-          <div>
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                Showing <span className="font-medium text-foreground">{filtered.length}</span> of {products.length} products
-              </p>
-            </div>
-
-            {filtered.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center">
-                <p className="text-muted-foreground">No products match these filters.</p>
-                <Button onClick={clear} className="mt-4 bg-sage text-white hover:bg-sage-deep">
-                  Clear filters
-                </Button>
+              
+              <div className="space-y-4">
+                <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Brand</h3>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => updateFilters({ brand: undefined })}
+                    className={`text-left text-sm ${!search.brand ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                  >
+                    All Brands
+                  </button>
+                  {BRANDS.map(b => (
+                    <button
+                      key={b}
+                      onClick={() => updateFilters({ brand: b })}
+                      className={`text-left text-sm ${search.brand === b ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                      {b}
+                    </button>
+                  ))}
+                </div>
               </div>
-            ) : (
-              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                {filtered.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
-                ))}
+
+              <div className="space-y-4">
+                <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Category</h3>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => updateFilters({ category: undefined })}
+                    className={`text-left text-sm ${!search.category ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                  >
+                    All Categories
+                  </button>
+                  {CATEGORIES.map(c => (
+                    <button
+                      key={c}
+                      onClick={() => updateFilters({ category: c })}
+                      className={`text-left text-sm ${search.category === c ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
               </div>
-            )}
+            </aside>
+
+            {/* Product Grid */}
+            <div className="flex-1">
+              <div className="mb-6 hidden items-center justify-between lg:flex">
+                <p className="text-sm text-muted-foreground">Showing {filteredProducts.length} results</p>
+                {search.q && (
+                  <div className="flex items-center gap-2 rounded-full border border-border bg-muted/30 px-4 py-1.5 text-sm">
+                    <span className="text-muted-foreground">Search:</span>
+                    <span className="font-medium">"{search.q}"</span>
+                    <button onClick={() => updateFilters({ q: undefined })} className="ml-1 text-muted-foreground hover:text-foreground">
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {filteredProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-24 text-center">
+                  <PackageOpen className="mb-4 h-12 w-12 text-muted-foreground/30" />
+                  <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold">No products found</h3>
+                  <p className="mt-2 text-muted-foreground">Try adjusting your filters or search term.</p>
+                  <Button onClick={clearFilters} variant="outline" className="mt-6">Clear Filters</Button>
+                </div>
+              ) : (
+                <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+                  {filteredProducts.map((p, i) => (
+                    <ProductCard key={p.id} product={p} index={i} />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Mobile Filters Modal */}
+      <AnimatePresence>
+        {mobileFiltersOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+              onClick={() => setMobileFiltersOpen(false)}
+            />
+            <motion.div
+              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] flex-col rounded-t-3xl border-t border-border bg-background shadow-2xl"
+            >
+              <div className="flex items-center justify-between border-b border-border p-4">
+                <h2 className="font-[family-name:var(--font-display)] text-lg font-semibold">Filters</h2>
+                <Button variant="ghost" size="icon" onClick={() => setMobileFiltersOpen(false)}>
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto p-4 space-y-8">
+                <div className="space-y-4">
+                  <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Brand</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {BRANDS.map(b => (
+                      <button
+                        key={b}
+                        onClick={() => updateFilters({ brand: search.brand === b ? undefined : b })}
+                        className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+                          search.brand === b ? 'border-sage bg-sage text-white' : 'border-border bg-card text-foreground hover:border-sage'
+                        }`}
+                      >
+                        {b}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Category</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {CATEGORIES.map(c => (
+                      <button
+                        key={c}
+                        onClick={() => updateFilters({ category: search.category === c ? undefined : c })}
+                        className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+                          search.category === c ? 'border-sage bg-sage text-white' : 'border-border bg-card text-foreground hover:border-sage'
+                        }`}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-border p-4 grid grid-cols-2 gap-3">
+                <Button variant="outline" onClick={clearFilters} disabled={activeFilterCount === 0}>
+                  Clear All
+                </Button>
+                <Button onClick={() => setMobileFiltersOpen(false)} className="bg-sage text-white hover:bg-sage-deep">
+                  Apply Filters
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </main>
-  );
-}
-
-function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="mt-5 border-t border-border pt-4 first:border-t-0 first:pt-0 first:mt-4">
-      <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        {label}
-      </h3>
-      <div className="flex flex-wrap gap-2">{children}</div>
-    </div>
-  );
-}
-
-function FilterChip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={
-        "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
-        (active
-          ? "border-sage bg-sage text-white"
-          : "border-border bg-background text-muted-foreground hover:border-sage hover:text-sage-deep")
-      }
-    >
-      {children}
-    </button>
   );
 }

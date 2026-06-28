@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
@@ -14,6 +14,7 @@ const navLinks = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigate = useNavigate();
   const { totalItems } = useCart();
 
   return (
@@ -79,15 +80,26 @@ export function Header() {
 
         {searchOpen && (
           <div className="border-t border-border py-3">
-            <div className="relative max-w-xl">
+            <form
+              className="relative max-w-xl"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const q = new FormData(e.currentTarget).get("q")?.toString();
+                if (q) {
+                  navigate({ to: "/shop", search: { q } });
+                  setSearchOpen(false);
+                }
+              }}
+            >
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="search"
+                name="q"
                 placeholder="Search products..."
                 className="h-10 w-full rounded-full border border-input bg-transparent pl-9 pr-4 text-sm outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 autoFocus
               />
-            </div>
+            </form>
           </div>
         )}
       </div>
