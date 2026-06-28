@@ -20,8 +20,23 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | null>(null);
 
+const CART_KEY = "twc-cart";
+
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
+  }, [items]);
 
   const addItem = useCallback((item: Omit<CartItem, "quantity">) => {
     setItems((current) => {
