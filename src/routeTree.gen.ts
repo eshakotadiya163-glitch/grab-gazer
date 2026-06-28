@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VendingMachinesRouteImport } from './routes/vending-machines'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CartRouteImport } from './routes/cart'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as B2bCatalogueRouteImport } from './routes/b2b-catalogue'
 import { Route as AboutRouteImport } from './routes/about'
@@ -30,6 +31,11 @@ const ShopRoute = ShopRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/b2b-catalogue': typeof B2bCatalogueRoute
   '/blog': typeof BlogRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/vending-machines': typeof VendingMachinesRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/b2b-catalogue': typeof B2bCatalogueRoute
   '/blog': typeof BlogRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/vending-machines': typeof VendingMachinesRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/b2b-catalogue': typeof B2bCatalogueRoute
   '/blog': typeof BlogRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/vending-machines': typeof VendingMachinesRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/b2b-catalogue'
     | '/blog'
+    | '/cart'
     | '/contact'
     | '/shop'
     | '/vending-machines'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/b2b-catalogue'
     | '/blog'
+    | '/cart'
     | '/contact'
     | '/shop'
     | '/vending-machines'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/b2b-catalogue'
     | '/blog'
+    | '/cart'
     | '/contact'
     | '/shop'
     | '/vending-machines'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   B2bCatalogueRoute: typeof B2bCatalogueRoute
   BlogRoute: typeof BlogRoute
+  CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
   ShopRoute: typeof ShopRoute
   VendingMachinesRoute: typeof VendingMachinesRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   B2bCatalogueRoute: B2bCatalogueRoute,
   BlogRoute: BlogRoute,
+  CartRoute: CartRoute,
   ContactRoute: ContactRoute,
   ShopRoute: ShopRoute,
   VendingMachinesRoute: VendingMachinesRoute,
