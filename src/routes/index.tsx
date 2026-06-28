@@ -4,7 +4,7 @@ import { ArrowRight, Heart, Leaf, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { BlogCard } from "@/components/BlogCard";
-import { products, blogPosts } from "@/lib/data";
+import { featuredProducts, blogPosts } from "@/lib/data";
 
 import heroImage from "@/assets/hero-products.jpg";
 
@@ -129,7 +129,7 @@ function HomePage() {
             </Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {products.map((product, index) => (
+            {featuredProducts.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />
             ))}
           </div>
