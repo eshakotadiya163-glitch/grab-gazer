@@ -10,6 +10,9 @@ export interface Product {
   priceLabel: string;
   image: string;
   tag?: string;
+  brand?: string;
+  category?: string;
+  variant?: string;
 }
 
 interface ProductCardProps {
@@ -25,7 +28,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+      transition={{ duration: 0.4, delay: Math.min(index, 8) * 0.04, ease: "easeOut" }}
       className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:shadow-soft"
     >
       <div className="relative aspect-square overflow-hidden bg-cream">
@@ -44,13 +47,23 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         />
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-[family-name:var(--font-display)] text-lg font-semibold text-foreground">
+        {product.brand && (
+          <span className="text-[11px] font-medium uppercase tracking-wider text-sage-deep">
+            {product.brand}
+          </span>
+        )}
+        <h3 className="mt-1 font-[family-name:var(--font-display)] text-lg font-semibold leading-tight text-foreground">
           {product.name}
         </h3>
-        <p className="mt-1 text-lg font-medium text-sage-deep">{product.priceLabel}</p>
+        {product.variant && (
+          <p className="mt-1 text-sm italic text-muted-foreground">{product.variant}</p>
+        )}
+        <p className="mt-2 text-lg font-medium text-foreground">{product.priceLabel}</p>
         <Button
           className="mt-4 w-full gap-2 bg-sage text-white hover:bg-sage-deep transition-colors"
-          onClick={() => addItem({ id: product.id, name: product.name, price: product.price, image: product.image })}
+          onClick={() =>
+            addItem({ id: product.id, name: product.name, price: product.price, image: product.image })
+          }
         >
           <ShoppingCart className="h-4 w-4" />
           Add to Cart

@@ -6,11 +6,9 @@ import { useCart } from "@/components/cart-context";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About Us" },
   { to: "/shop", label: "Shop" },
-  { to: "/vending-machines", label: "Vending Machines" },
-  { to: "/b2b-catalogue", label: "B2B Catalogue" },
-  { to: "/contact", label: "Contact Us" },
+  { to: "/about", label: "About Us" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {
