@@ -9,8 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VendingMachinesRouteImport } from './routes/vending-machines'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as B2bCatalogueRouteImport } from './routes/b2b-catalogue'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VendingMachinesRoute = VendingMachinesRouteImport.update({
+  id: '/vending-machines',
+  path: '/vending-machines',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const B2bCatalogueRoute = B2bCatalogueRouteImport.update({
+  id: '/b2b-catalogue',
+  path: '/b2b-catalogue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +55,116 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/b2b-catalogue': typeof B2bCatalogueRoute
+  '/blog': typeof BlogRoute
+  '/contact': typeof ContactRoute
+  '/shop': typeof ShopRoute
+  '/vending-machines': typeof VendingMachinesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/b2b-catalogue': typeof B2bCatalogueRoute
+  '/blog': typeof BlogRoute
+  '/contact': typeof ContactRoute
+  '/shop': typeof ShopRoute
+  '/vending-machines': typeof VendingMachinesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/b2b-catalogue': typeof B2bCatalogueRoute
+  '/blog': typeof BlogRoute
+  '/contact': typeof ContactRoute
+  '/shop': typeof ShopRoute
+  '/vending-machines': typeof VendingMachinesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/b2b-catalogue'
+    | '/blog'
+    | '/contact'
+    | '/shop'
+    | '/vending-machines'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/b2b-catalogue'
+    | '/blog'
+    | '/contact'
+    | '/shop'
+    | '/vending-machines'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/b2b-catalogue'
+    | '/blog'
+    | '/contact'
+    | '/shop'
+    | '/vending-machines'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  B2bCatalogueRoute: typeof B2bCatalogueRoute
+  BlogRoute: typeof BlogRoute
+  ContactRoute: typeof ContactRoute
+  ShopRoute: typeof ShopRoute
+  VendingMachinesRoute: typeof VendingMachinesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vending-machines': {
+      id: '/vending-machines'
+      path: '/vending-machines'
+      fullPath: '/vending-machines'
+      preLoaderRoute: typeof VendingMachinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/b2b-catalogue': {
+      id: '/b2b-catalogue'
+      path: '/b2b-catalogue'
+      fullPath: '/b2b-catalogue'
+      preLoaderRoute: typeof B2bCatalogueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +177,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  B2bCatalogueRoute: B2bCatalogueRoute,
+  BlogRoute: BlogRoute,
+  ContactRoute: ContactRoute,
+  ShopRoute: ShopRoute,
+  VendingMachinesRoute: VendingMachinesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
