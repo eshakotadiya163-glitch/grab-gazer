@@ -97,7 +97,6 @@ function HomePage() {
                 width={1400}
                 height={900}
                 className="aspect-[4/3] w-full object-cover lg:aspect-[14/10]"
-                priority
               />
             </div>
             <div className="absolute -bottom-6 -left-6 hidden rounded-2xl bg-white p-4 shadow-soft lg:block">
