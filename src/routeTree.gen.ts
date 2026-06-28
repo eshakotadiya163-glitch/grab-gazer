@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VendingMachinesRouteImport } from './routes/vending-machines'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -26,6 +27,11 @@ const VendingMachinesRoute = VendingMachinesRouteImport.update({
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/vending-machines': typeof VendingMachinesRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/vending-machines': typeof VendingMachinesRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/vending-machines': typeof VendingMachinesRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cart'
     | '/contact'
+    | '/login'
     | '/shop'
     | '/vending-machines'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cart'
     | '/contact'
+    | '/login'
     | '/shop'
     | '/vending-machines'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cart'
     | '/contact'
+    | '/login'
     | '/shop'
     | '/vending-machines'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
+  LoginRoute: typeof LoginRoute
   ShopRoute: typeof ShopRoute
   VendingMachinesRoute: typeof VendingMachinesRoute
 }
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   CartRoute: CartRoute,
   ContactRoute: ContactRoute,
+  LoginRoute: LoginRoute,
   ShopRoute: ShopRoute,
   VendingMachinesRoute: VendingMachinesRoute,
 }
