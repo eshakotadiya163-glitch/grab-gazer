@@ -76,7 +76,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       className={`group flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:shadow-lg ${style.border}`}
     >
       {/* Image */}
-      <Link to="/product/$id" params={{ id: product.id }} className="relative block aspect-square overflow-hidden bg-muted/30">
+      <Link to="/product/$id" params={{ id: product.id }} className="relative block aspect-square overflow-hidden bg-[#FFF0F0]">
         {/* Badge */}
         {isMamaearth ? (
           <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-emerald-500 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">

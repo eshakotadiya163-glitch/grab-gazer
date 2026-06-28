@@ -113,7 +113,7 @@ function ProductDetailPage() {
               transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="relative"
             >
-              <div className="relative aspect-square overflow-hidden rounded-3xl border border-border bg-muted/20 shadow-lg">
+              <div className="relative aspect-square overflow-hidden rounded-3xl border border-border bg-[#FFF0F0] shadow-lg">
                 {isMamaearth && (
                   <span className="absolute left-4 top-4 z-10 flex items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1.5 text-xs font-semibold text-white shadow">
                     <Leaf className="h-3 w-3" /> Toxin-Free ✓
