@@ -100,6 +100,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@TheWomansCompany" },
+      { property: "og:title", content: "The Woman's Company — Sustainable Feminine Hygiene" },
+      { name: "twitter:title", content: "The Woman's Company — Sustainable Feminine Hygiene" },
+      { name: "description", content: "Safe, sustainable & toxin-free feminine hygiene, skin care and body care products for every modern woman. Shop The Woman's Company, Kimirica ." },
+      { property: "og:description", content: "Safe, sustainable & toxin-free feminine hygiene, skin care and body care products for every modern woman. Shop The Woman's Company, Kimirica ." },
+      { name: "twitter:description", content: "Safe, sustainable & toxin-free feminine hygiene, skin care and body care products for every modern woman. Shop The Woman's Company, Kimirica ." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1c559943-9f4c-48bf-9161-b1ccd8ec7877" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1c559943-9f4c-48bf-9161-b1ccd8ec7877" },
     ],
     links: [
       {
