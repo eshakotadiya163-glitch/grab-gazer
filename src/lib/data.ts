@@ -154,7 +154,7 @@ export const products: Product[] = [
     undefined, "Grounded in nature, this lotion uses Persian sweet lime and earth minerals to restore moisture and radiance to everyday skin.", 4.2, 28),
   p("kim-herbalist-lotion",  "Herbalist Body Lotion",               449, "Kimirica", "Body Lotion", IMG.kimHerbalistLotion, "Bergamot & Patchouli",
     undefined, "An aromatic herbal blend of bergamot and patchouli deeply conditions skin while releasing a grounding, sophisticated scent.", 4.4, 16),
-  p("kim-vivah-lotion",      "Vivah Body Lotion 300ml",             487, "Kimirica", "Body Lotion", IMG.kimLotionVivah, "Marigold & Turmeric",
+  p("kim-vivah-lotion",      "Vivah Body Lotion 300ml",             487, "Kimirica", "Body Lotion", IMG.kimVivahCream, "Marigold & Turmeric",
     undefined, "Infused with marigold and turmeric — traditional Indian wedding botanicals — this lotion brightens and nourishes for a radiant bridal glow.", 4.7, 12),
   p("kim-gulistan-lotion",   "The Gulistan Hand & Body Lotion",     487, "Kimirica", "Body Lotion", IMG.bodyLotion, "Rose Absolute & Iris",
     undefined, "Inspired by Persian rose gardens, this velvety lotion combines rose absolute and iris for deep hydration and a romantic floral trail.", 4.5, 14),
@@ -372,33 +372,96 @@ export const featuredProducts: Product[] = [
   products.find((p) => p.id === "kim-souq-wash")!,
 ];
 
+import blogRitual from "@/assets/blog-pads-evolution.jpg";
+import blogFragrance from "@/assets/blog-planet-health.jpg";
+import blogNiacinamide from "@/assets/blog-sleep.jpg";
+import blogGifting from "@/assets/blog-cramps.jpg";
+
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
     title: "Building a Daily Body Care Ritual",
     excerpt: "A simple morning-to-night routine using lotions, creams, and mists for soft, glowing skin.",
-    image: "/src/assets/blog-pads-evolution.jpg",
+    image: blogRitual,
     slug: "building-a-daily-body-care-ritual",
+    author: "Editorial Team",
+    date: "Jun 12, 2026",
+    readTime: "6 min read",
+    sections: [
+      { id: "morning", heading: "Morning: cleanse and hydrate", paragraphs: [
+        "Start your day with a gentle body wash that respects your skin's natural barrier. Follow with a lightweight lotion that absorbs quickly so you can dress without waiting.",
+        "Look for ingredients like niacinamide, glycerin and squalane — they hydrate without feeling heavy, even in humid weather.",
+      ]},
+      { id: "midday", heading: "Midday: refresh with a body mist", paragraphs: [
+        "A few spritzes of a body mist between meetings or after the gym can completely reset how your skin feels. Pick a scent family you genuinely enjoy — citrus for energy, florals for warmth, woody notes for grounding.",
+      ]},
+      { id: "evening", heading: "Evening: nourish overnight", paragraphs: [
+        "Trade your morning lotion for a richer body cream at night. Skin repair peaks during sleep, so a butter-textured cream layered on damp skin locks in maximum moisture.",
+        "Pay attention to elbows, knees and heels — they need the extra love.",
+      ]},
+    ],
   },
   {
     id: "2",
     title: "How to Choose a Signature Fragrance",
     excerpt: "Discover scent families and find the EDP that matches your mood and personality.",
-    image: "/src/assets/blog-planet-health.jpg",
+    image: blogFragrance,
     slug: "how-to-choose-a-signature-fragrance",
+    author: "Editorial Team",
+    date: "May 28, 2026",
+    readTime: "5 min read",
+    sections: [
+      { id: "families", heading: "Understand the four scent families", paragraphs: [
+        "Most fragrances fall into floral, woody, oriental or fresh. Knowing which family you gravitate toward narrows hundreds of options into a handful worth sampling.",
+      ]},
+      { id: "skin-test", heading: "Always test on skin, never on paper", paragraphs: [
+        "A scent transforms once it meets your skin's chemistry. Spray on a pulse point and wear it for at least four hours before deciding — the dry-down is what you'll smell like most of the day.",
+      ]},
+      { id: "occasions", heading: "Match the scent to the occasion", paragraphs: [
+        "Lighter, citrusy EDPs suit daytime and the office. Warmer, deeper scents come alive in the evening. Many people keep two — a daily go-to and a special-occasion bottle.",
+      ]},
+    ],
   },
   {
     id: "3",
     title: "The Science of Niacinamide",
     excerpt: "Why this hero ingredient deserves a spot in your face and body care routine.",
-    image: "/src/assets/blog-sleep.jpg",
+    image: blogNiacinamide,
     slug: "the-science-of-niacinamide",
+    author: "Editorial Team",
+    date: "May 14, 2026",
+    readTime: "7 min read",
+    sections: [
+      { id: "what", heading: "What is niacinamide?", paragraphs: [
+        "Niacinamide is a form of vitamin B3 that supports the skin's natural barrier, regulates oil production and visibly evens skin tone over time.",
+      ]},
+      { id: "benefits", heading: "Why it works for almost everyone", paragraphs: [
+        "Unlike many actives, niacinamide is gentle enough for sensitive skin and pairs well with retinol, vitamin C and acids. A 5% concentration is the sweet spot for most people.",
+      ]},
+      { id: "how", heading: "How to use it daily", paragraphs: [
+        "Apply after cleansing and before heavier creams. Consistency matters more than concentration — results show after 4–8 weeks of daily use.",
+      ]},
+    ],
   },
   {
     id: "4",
     title: "Gifting Guide: Curated Sets She'll Love",
     excerpt: "From bath duos to fragrance trios, our most-loved sets for every occasion.",
-    image: "/src/assets/blog-cramps.jpg",
+    image: blogGifting,
     slug: "gifting-guide-curated-sets",
+    author: "Editorial Team",
+    date: "Apr 30, 2026",
+    readTime: "4 min read",
+    sections: [
+      { id: "duos", heading: "Bath and body duos", paragraphs: [
+        "Matching shower gel and lotion sets are the easiest way to gift a complete routine. They feel considered without requiring you to guess at preferences.",
+      ]},
+      { id: "fragrance", heading: "Fragrance sets for explorers", paragraphs: [
+        "If the person you're gifting loves trying new scents, a multi-bottle EDP set lets them experiment without committing to a full bottle.",
+      ]},
+      { id: "wrap", heading: "A note on presentation", paragraphs: [
+        "Premium packaging matters. Choose sets that arrive gift-ready so you can skip the wrapping paper without skipping the wow.",
+      ]},
+    ],
   },
 ];

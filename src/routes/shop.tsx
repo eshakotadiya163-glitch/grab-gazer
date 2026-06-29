@@ -46,7 +46,7 @@ function ShopPage() {
 
   const updateFilters = (updates: Partial<typeof search>) => {
     navigate({
-      search: (prev) => {
+      search: (prev: typeof search) => {
         const next = { ...prev, ...updates };
         // Remove empty strings/undefined
         Object.keys(next).forEach((key) => {

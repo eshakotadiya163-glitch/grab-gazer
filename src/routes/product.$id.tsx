@@ -1,13 +1,14 @@
 import { useMemo } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ChevronRight, Star, ShoppingCart, Leaf, Shield, Truck,
-  RotateCcw, ChevronDown,
+  RotateCcw, ChevronDown, Zap, Heart, Share2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
+import { useWishlist } from "@/components/wishlist-context";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/data";
 
@@ -69,9 +70,12 @@ function StarRating({ rating, count }: { rating: number; count?: number }) {
 function ProductDetailPage() {
   const { product } = Route.useLoaderData();
   const { addItem } = useCart();
+  const { has: isWished, toggle: toggleWish } = useWishlist();
+  const navigate = useNavigate();
 
   const style = BRAND_COLORS[product.brand ?? "The Woman Company"] ?? BRAND_COLORS["The Woman Company"];
   const isMamaearth = product.brand === "Mamaearth";
+  const wished = isWished(product.id);
 
   const related = useMemo(
     () => products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4),
@@ -83,6 +87,25 @@ function ProductDetailPage() {
     toast.success(`${product.name} added to cart!`, {
       description: `${product.priceLabel} · ${product.variant ?? product.category}`,
     });
+  };
+
+  const handleBuyNow = () => {
+    addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+    navigate({ to: "/checkout" });
+  };
+
+  const handleShare = async () => {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    try {
+      if (typeof navigator !== "undefined" && navigator.share) {
+        await navigator.share({ title: product.name, url });
+      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(url);
+        toast.success("Link copied to clipboard");
+      }
+    } catch {
+      // user cancelled share
+    }
   };
 
   return (
@@ -200,10 +223,31 @@ function ProductDetailPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  asChild
-                  className="flex-1 sm:flex-none sm:min-w-44"
+                  onClick={handleBuyNow}
+                  className="flex-1 gap-2 border-foreground/30 sm:flex-none sm:min-w-44"
                 >
-                  <Link to="/cart">View Cart</Link>
+                  <Zap className="h-5 w-5" />
+                  Buy Now
+                </Button>
+              </div>
+
+              {/* Wishlist + Share */}
+              <div className="mt-3 flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    toggleWish(product.id);
+                    toast.success(wished ? "Removed from wishlist" : "Added to wishlist");
+                  }}
+                  className="gap-2"
+                >
+                  <Heart className={`h-4 w-4 ${wished ? "fill-rose-500 text-rose-500" : ""}`} />
+                  {wished ? "Wishlisted" : "Add to Wishlist"}
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleShare} className="gap-2">
+                  <Share2 className="h-4 w-4" />
+                  Share
                 </Button>
               </div>
 

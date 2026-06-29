@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/components/cart-context";
-import { placeOrderFn } from "@/lib/server/orders";
+import { placeOrder } from "@/lib/orders-storage";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -83,14 +83,13 @@ function CheckoutPage() {
     }
     setIsSubmitting(true);
     try {
-      const result = await placeOrderFn({ data: { ...data, items } });
-      if (result.success) {
-        clearCart();
-        await navigate({
-          to: "/order-confirmation",
-          search: { orderId: result.order.orderId, total: String(result.order.total) },
-        });
-      }
+      const order = placeOrder({ ...data, items });
+      clearCart();
+      toast.success("Order placed!");
+      await navigate({
+        to: "/order-confirmation",
+        search: { orderId: order.orderId, total: String(order.total) },
+      });
     } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
