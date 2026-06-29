@@ -44,7 +44,7 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function BlogPostPage() {
   const { post, prev, next, related } = Route.useLoaderData();
-  const toc = post.sections.map((s) => ({ id: s.id, title: s.heading }));
+  const toc = post.sections.map((s: { id: string; heading: string }) => ({ id: s.id, title: s.heading }));
 
   return (
     <main className="min-h-screen bg-background">
@@ -78,12 +78,12 @@ function BlogPostPage() {
 
             <p className="mt-8 text-lg leading-relaxed text-foreground/90">{post.excerpt}</p>
 
-            {post.sections.map((s) => (
+            {post.sections.map((s: { id: string; heading: string; paragraphs: string[] }) => (
               <section key={s.id} id={s.id} className="mt-10 scroll-mt-24">
                 <h2 className="font-[family-name:var(--font-display)] text-2xl font-semibold text-foreground">
                   {s.heading}
                 </h2>
-                {s.paragraphs.map((p, i) => (
+                {s.paragraphs.map((p: string, i: number) => (
                   <p key={i} className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{p}</p>
                 ))}
               </section>
@@ -117,7 +117,7 @@ function BlogPostPage() {
             <div className="rounded-2xl border border-border bg-card p-5">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Table of contents</p>
               <ul className="mt-3 space-y-2 text-sm">
-                {toc.map((item) => (
+                {toc.map((item: { id: string; title: string }) => (
                   <li key={item.id}>
                     <a href={`#${item.id}`} className="text-foreground/80 transition-colors hover:text-sage-deep">
                       {item.title}
@@ -142,7 +142,7 @@ function BlogPostPage() {
               </Link>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((rp, i) => <BlogCard key={rp.id} post={rp} index={i} />)}
+              {related.map((rp: typeof post, i: number) => <BlogCard key={rp.id} post={rp} index={i} />)}
             </div>
           </div>
         </section>
