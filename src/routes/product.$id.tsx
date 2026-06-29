@@ -1,13 +1,14 @@
 import { useMemo } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ChevronRight, Star, ShoppingCart, Leaf, Shield, Truck,
-  RotateCcw, ChevronDown,
+  RotateCcw, ChevronDown, Zap, Heart, Share2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
+import { useWishlist } from "@/components/wishlist-context";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/data";
 
@@ -69,9 +70,12 @@ function StarRating({ rating, count }: { rating: number; count?: number }) {
 function ProductDetailPage() {
   const { product } = Route.useLoaderData();
   const { addItem } = useCart();
+  const { has: isWished, toggle: toggleWish } = useWishlist();
+  const navigate = useNavigate();
 
   const style = BRAND_COLORS[product.brand ?? "The Woman Company"] ?? BRAND_COLORS["The Woman Company"];
   const isMamaearth = product.brand === "Mamaearth";
+  const wished = isWished(product.id);
 
   const related = useMemo(
     () => products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4),
@@ -83,6 +87,25 @@ function ProductDetailPage() {
     toast.success(`${product.name} added to cart!`, {
       description: `${product.priceLabel} · ${product.variant ?? product.category}`,
     });
+  };
+
+  const handleBuyNow = () => {
+    addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+    navigate({ to: "/checkout" });
+  };
+
+  const handleShare = async () => {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    try {
+      if (typeof navigator !== "undefined" && navigator.share) {
+        await navigator.share({ title: product.name, url });
+      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(url);
+        toast.success("Link copied to clipboard");
+      }
+    } catch {
+      // user cancelled share
+    }
   };
 
   return (
