@@ -223,10 +223,31 @@ function ProductDetailPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  asChild
-                  className="flex-1 sm:flex-none sm:min-w-44"
+                  onClick={handleBuyNow}
+                  className="flex-1 gap-2 border-foreground/30 sm:flex-none sm:min-w-44"
                 >
-                  <Link to="/cart">View Cart</Link>
+                  <Zap className="h-5 w-5" />
+                  Buy Now
+                </Button>
+              </div>
+
+              {/* Wishlist + Share */}
+              <div className="mt-3 flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    toggleWish(product.id);
+                    toast.success(wished ? "Removed from wishlist" : "Added to wishlist");
+                  }}
+                  className="gap-2"
+                >
+                  <Heart className={`h-4 w-4 ${wished ? "fill-rose-500 text-rose-500" : ""}`} />
+                  {wished ? "Wishlisted" : "Add to Wishlist"}
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleShare} className="gap-2">
+                  <Share2 className="h-4 w-4" />
+                  Share
                 </Button>
               </div>
 
