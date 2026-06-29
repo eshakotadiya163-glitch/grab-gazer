@@ -122,8 +122,10 @@ function CartPage() {
                     <span>Rs. {totalPrice}</span>
                   </div>
                 </div>
-                <Button className="mt-6 w-full gap-2 bg-sage text-white hover:bg-sage-deep" size="lg">
-                  Checkout <ArrowRight className="h-4 w-4" />
+                <Button asChild className="mt-6 w-full gap-2 bg-sage text-white hover:bg-sage-deep" size="lg">
+                  <Link to="/checkout">
+                    Checkout <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">
                   Shipping & taxes calculated at checkout.

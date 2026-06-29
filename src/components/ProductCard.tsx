@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Leaf, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 
@@ -135,6 +136,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             onClick={(e) => {
               e.preventDefault();
               addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+              toast.success(`${product.name} added to cart`);
             }}
           >
             <ShoppingCart className="h-3.5 w-3.5" />
