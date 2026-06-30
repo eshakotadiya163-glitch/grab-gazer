@@ -576,6 +576,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_as_vendor: {
+        Args: { _description: string; _store_name: string; _store_slug: string }
+        Returns: string
+      }
+      bootstrap_admin: { Args: never; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
