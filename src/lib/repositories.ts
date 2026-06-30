@@ -15,7 +15,7 @@ function table(name: string) {
   };
 }
 
-export function repo<T extends AnyRow = AnyRow>(name: string) {
+export function repo<T extends { id: string } = { id: string } & AnyRow>(name: string) {
   return {
     list: async (opts?: { order?: string; ascending?: boolean; filters?: Array<[string, string, unknown]>; limit?: number }) => {
       let q: any = table(name).select("*");
