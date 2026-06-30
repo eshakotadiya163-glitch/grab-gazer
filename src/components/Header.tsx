@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
+import { Search, User, ShoppingBag, Menu, X, ShieldCheck, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
+import { useAuth } from "@/components/auth-context";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -16,6 +17,7 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const navigate = useNavigate();
   const { totalItems } = useCart();
+  const { isAdmin, isVendor } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -51,6 +53,16 @@ export function Header() {
             >
               <Search className="h-5 w-5" />
             </Button>
+            {isAdmin && (
+              <Button variant="ghost" size="icon" className="shrink-0" aria-label="Admin dashboard" asChild>
+                <Link to="/admin"><ShieldCheck className="h-5 w-5 text-sage-deep" /></Link>
+              </Button>
+            )}
+            {isVendor && (
+              <Button variant="ghost" size="icon" className="shrink-0" aria-label="Vendor dashboard" asChild>
+                <Link to="/vendor"><Store className="h-5 w-5 text-sage-deep" /></Link>
+              </Button>
+            )}
             <Button variant="ghost" size="icon" className="shrink-0" aria-label="Login" asChild>
               <Link to="/login">
                 <User className="h-5 w-5" />
