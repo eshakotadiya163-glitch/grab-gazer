@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/components/cart-context";
-import { placeOrder } from "@/lib/orders-storage";
+import { ordersRepo, orderItemsRepo } from "@/lib/repositories";
+import { useAuth } from "@/components/auth-context";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -64,38 +65,46 @@ function FormField({ label, error, children }: { label: string; error?: string; 
 
 function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const shipping = totalPrice >= 499 ? 0 : 49;
   const total    = totalPrice + shipping;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormValues) => {
-    if (items.length === 0) {
-      toast.error("Your cart is empty.");
-      return;
-    }
+    if (items.length === 0) { toast.error("Your cart is empty."); return; }
     setIsSubmitting(true);
     try {
-      const order = placeOrder({ ...data, items });
+      const orderNumber = `ORD-${Date.now().toString(36).toUpperCase()}`;
+      const order = await ordersRepo.create({
+        order_number: orderNumber,
+        customer_id: user?.id ?? null,
+        customer_name: data.customerName,
+        customer_email: data.email,
+        customer_phone: data.phone,
+        address: data.address, city: data.city, state: data.state, pincode: data.pincode,
+        subtotal: totalPrice, shipping, total,
+        status: "pending", payment_status: "unpaid",
+      } as any);
+      await Promise.all(items.map((it) => orderItemsRepo.create({
+        order_id: (order as any).id,
+        product_id: it.id.length === 36 ? it.id : null,
+        product_name: it.name, product_image: it.image,
+        unit_price: it.price, quantity: it.quantity, subtotal: it.price * it.quantity,
+      } as any)));
       clearCart();
       toast.success("Order placed!");
-      await navigate({
-        to: "/order-confirmation",
-        search: { orderId: order.orderId, total: String(order.total) },
-      });
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+      await navigate({ to: "/order-confirmation", search: { orderId: (order as any).order_number, total: String(total) } });
+    } catch (err: any) {
+      toast.error(err?.message ?? "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   if (items.length === 0) {
     return (
