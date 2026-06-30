@@ -4,11 +4,13 @@ import { ArrowRight, Heart, Leaf, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { BlogCard } from "@/components/BlogCard";
-import { featuredProducts, blogPosts } from "@/lib/data";
+import { blogPosts } from "@/lib/data";
+import { getFeaturedProductsFn } from "@/lib/repositories";
 
 import heroImage from "@/assets/hero-products.jpg";
 
 export const Route = createFileRoute("/")({
+  loader: () => getFeaturedProductsFn(),
   head: () => ({
     meta: [
       { title: "The Woman's Company — Sustainable Feminine Hygiene" },
@@ -32,6 +34,8 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+  const featuredProducts = Route.useLoaderData();
+
   return (
     <main className="min-h-screen">
       {/* Hero */}

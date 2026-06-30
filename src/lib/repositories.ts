@@ -1,11 +1,12 @@
 // Thin repository layer over Supabase. Centralizes table access so the
 // rest of the app talks to typed helpers, not raw client calls.
+import { createServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import type { Product } from "@/components/ProductCard";
 
 type AnyRow = Record<string, unknown>;
 
 function table(name: string) {
-  // Type assertion: generated types are empty until tables are introspected.
   return supabase.from(name as never) as unknown as {
     select: (cols?: string, opts?: { count?: "exact" | "planned" | "estimated"; head?: boolean }) => any;
     insert: (row: AnyRow | AnyRow[]) => any;
@@ -72,3 +73,108 @@ export const userRolesRepo  = repo("user_roles");
 export function slugify(s: string) {
   return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 64);
 }
+
+// ─── Shop catalog (Supabase products + joined brand/category names) ───────────
+
+const PLACEHOLDER = "/assets/images/products/placeholder.png";
+
+const PRODUCT_SELECT =
+  "id, name, price, mrp, stock, image_url, slug, description, tags, status, brands:brand_id ( name ), categories:category_id ( name )";
+
+type DbProductRow = {
+  id: string;
+  name: string;
+  price: number;
+  mrp: number | null;
+  stock: number;
+  image_url: string | null;
+  slug: string;
+  description: string | null;
+  tags: string[] | null;
+  status: string;
+  brands: { name: string } | null;
+  categories: { name: string } | null;
+};
+
+export function mapProductRow(row: DbProductRow): Product {
+  const price = Number(row.price);
+  return {
+    id: row.id,
+    name: row.name,
+    price,
+    priceLabel: `₹${price}`,
+    image: row.image_url || PLACEHOLDER,
+    image_url: row.image_url ?? undefined,
+    brand: row.brands?.name,
+    category: row.categories?.name,
+    stock: row.stock ?? 0,
+    tag: row.tags?.[0],
+    description: row.description ?? undefined,
+    mrp: row.mrp ?? undefined,
+  };
+}
+
+async function fetchActiveProducts(limit?: number) {
+  let q = supabase
+    .from("products")
+    .select(PRODUCT_SELECT)
+    .eq("status", "active")
+    .order("name");
+
+  if (limit) q = q.limit(limit);
+
+  const { data, error } = await q;
+  // #region agent log
+  fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "f9e79c" },
+    body: JSON.stringify({
+      sessionId: "f9e79c",
+      location: "repositories.ts:fetchActiveProducts",
+      message: "Supabase products query result",
+      data: { count: data?.length ?? 0, error: error?.message ?? null, limit: limit ?? null },
+      timestamp: Date.now(),
+      hypothesisId: "A",
+    }),
+  }).catch(() => {});
+  // #endregion
+  if (error) throw error;
+  return (data ?? []) as DbProductRow[];
+}
+
+export async function fetchShopCatalog() {
+  const rows = await fetchActiveProducts();
+  const products = rows.map(mapProductRow);
+  const brands = [...new Set(products.map((p) => p.brand).filter(Boolean))].sort() as string[];
+  const categories = [...new Set(products.map((p) => p.category).filter(Boolean))].sort() as string[];
+  return { products, brands, categories };
+}
+
+export async function fetchFeaturedProducts(limit = 8) {
+  const rows = await fetchActiveProducts(limit);
+  return rows.map(mapProductRow);
+}
+
+export async function fetchProductById(idOrSlug: string): Promise<Product | null> {
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+  let q = supabase.from("products").select(PRODUCT_SELECT).eq("status", "active");
+  q = isUuid ? q.eq("id", idOrSlug) : q.eq("slug", idOrSlug);
+  const { data, error } = await q.maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  return mapProductRow(data as DbProductRow);
+}
+
+export const getShopCatalogFn = createServerFn({ method: "GET" }).handler(async () => fetchShopCatalog());
+
+export const getFeaturedProductsFn = createServerFn({ method: "GET" }).handler(async () =>
+  fetchFeaturedProducts(8),
+);
+
+export const getProductByIdFn = createServerFn({ method: "GET" })
+  .validator((data: { id: string }) => data)
+  .handler(async ({ data }) => {
+    const product = await fetchProductById(data.id);
+    if (!product) throw new Error("Product not found");
+    return product;
+  });

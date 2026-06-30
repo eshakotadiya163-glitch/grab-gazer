@@ -1,11 +1,11 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, X, SlidersHorizontal, PackageOpen } from "lucide-react";
+import { X, SlidersHorizontal, PackageOpen, Loader2 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
-import { products, BRANDS, CATEGORIES } from "@/lib/data";
+import { getShopCatalogFn } from "@/lib/repositories";
 
 const searchSchema = z.object({
   q: z.string().optional(),
@@ -17,6 +17,28 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/shop")({
   validateSearch: searchSchema,
+  loader: async () => {
+    const catalog = await getShopCatalogFn();
+    // #region agent log
+    fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "f9e79c" },
+      body: JSON.stringify({
+        sessionId: "f9e79c",
+        location: "shop.tsx:loader",
+        message: "Shop catalog loaded",
+        data: {
+          productCount: catalog.products.length,
+          brandCount: catalog.brands.length,
+          categoryCount: catalog.categories.length,
+        },
+        timestamp: Date.now(),
+        hypothesisId: "B",
+      }),
+    }).catch(() => {});
+    // #endregion
+    return catalog;
+  },
   head: () => ({
     meta: [
       { title: "Shop — The Woman's Company" },
@@ -24,31 +46,36 @@ export const Route = createFileRoute("/shop")({
     ],
   }),
   component: ShopPage,
+  pendingComponent: () => (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-sage" />
+    </div>
+  ),
 });
 
 function ShopPage() {
+  const { products, brands, categories } = Route.useLoaderData();
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
-  
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  // Filter products based on URL search params
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
-      if (search.q && !p.name.toLowerCase().includes(search.q.toLowerCase()) && !p.category?.toLowerCase().includes(search.q.toLowerCase())) return false;
+      const q = search.q?.toLowerCase();
+      if (q && !p.name.toLowerCase().includes(q) && !p.category?.toLowerCase().includes(q)) return false;
       if (search.brand && p.brand !== search.brand) return false;
       if (search.category && p.category !== search.category) return false;
       if (search.minPrice && p.price < search.minPrice) return false;
       if (search.maxPrice && p.price > search.maxPrice) return false;
       return true;
     });
-  }, [search]);
+  }, [products, search]);
 
   const updateFilters = (updates: Partial<typeof search>) => {
     navigate({
       search: (prev: typeof search) => {
         const next = { ...prev, ...updates };
-        // Remove empty strings/undefined
         Object.keys(next).forEach((key) => {
           const k = key as keyof typeof next;
           if (next[k] === "" || next[k] === undefined) {
@@ -68,14 +95,13 @@ function ShopPage() {
 
   return (
     <main className="min-h-screen bg-background pb-20">
-      {/* Hero section */}
       <section className="bg-blush py-12 lg:py-20">
         <div className="container-tight text-center">
           <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold text-foreground sm:text-5xl lg:text-6xl">
             Shop All
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Safe, sustainable, and toxin-free products designed for your everyday care. 
+            Safe, sustainable, and toxin-free products designed for your everyday care.
             From intimate hygiene to nourishing skincare.
           </p>
         </div>
@@ -84,8 +110,6 @@ function ShopPage() {
       <section className="py-8 lg:py-12">
         <div className="container-tight">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-            
-            {/* Mobile filter toggle */}
             <div className="flex items-center justify-between lg:hidden">
               <p className="font-medium text-foreground">{filteredProducts.length} products</p>
               <Button
@@ -99,7 +123,6 @@ function ShopPage() {
               </Button>
             </div>
 
-            {/* Sidebar filters (Desktop) */}
             <aside className="hidden w-64 shrink-0 lg:block space-y-8 sticky top-24">
               <div className="flex items-center justify-between">
                 <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold">Filters</h2>
@@ -109,21 +132,21 @@ function ShopPage() {
                   </button>
                 )}
               </div>
-              
+
               <div className="space-y-4">
                 <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Brand</h3>
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => updateFilters({ brand: undefined })}
-                    className={`text-left text-sm ${!search.brand ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                    className={`text-left text-sm ${!search.brand ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     All Brands
                   </button>
-                  {BRANDS.map(b => (
+                  {brands.map((b) => (
                     <button
                       key={b}
                       onClick={() => updateFilters({ brand: b })}
-                      className={`text-left text-sm ${search.brand === b ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                      className={`text-left text-sm ${search.brand === b ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                     >
                       {b}
                     </button>
@@ -136,15 +159,15 @@ function ShopPage() {
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => updateFilters({ category: undefined })}
-                    className={`text-left text-sm ${!search.category ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                    className={`text-left text-sm ${!search.category ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     All Categories
                   </button>
-                  {CATEGORIES.map(c => (
+                  {categories.map((c) => (
                     <button
                       key={c}
                       onClick={() => updateFilters({ category: c })}
-                      className={`text-left text-sm ${search.category === c ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                      className={`text-left text-sm ${search.category === c ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                     >
                       {c}
                     </button>
@@ -153,14 +176,13 @@ function ShopPage() {
               </div>
             </aside>
 
-            {/* Product Grid */}
             <div className="flex-1">
               <div className="mb-6 hidden items-center justify-between lg:flex">
-                <p className="text-sm text-muted-foreground">Showing {filteredProducts.length} results</p>
+                <p className="text-sm text-muted-foreground">Showing {filteredProducts.length} of {products.length} results</p>
                 {search.q && (
                   <div className="flex items-center gap-2 rounded-full border border-border bg-muted/30 px-4 py-1.5 text-sm">
                     <span className="text-muted-foreground">Search:</span>
-                    <span className="font-medium">"{search.q}"</span>
+                    <span className="font-medium">&quot;{search.q}&quot;</span>
                     <button onClick={() => updateFilters({ q: undefined })} className="ml-1 text-muted-foreground hover:text-foreground">
                       <X className="h-3 w-3" />
                     </button>
@@ -187,7 +209,6 @@ function ShopPage() {
         </div>
       </section>
 
-      {/* Mobile Filters Modal */}
       <AnimatePresence>
         {mobileFiltersOpen && (
           <>
@@ -207,17 +228,17 @@ function ShopPage() {
                   <X className="h-5 w-5" />
                 </Button>
               </div>
-              
+
               <div className="flex-1 overflow-y-auto p-4 space-y-8">
                 <div className="space-y-4">
                   <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Brand</h3>
                   <div className="flex flex-wrap gap-2">
-                    {BRANDS.map(b => (
+                    {brands.map((b) => (
                       <button
                         key={b}
                         onClick={() => updateFilters({ brand: search.brand === b ? undefined : b })}
                         className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
-                          search.brand === b ? 'border-sage bg-sage text-white' : 'border-border bg-card text-foreground hover:border-sage'
+                          search.brand === b ? "border-sage bg-sage text-white" : "border-border bg-card text-foreground hover:border-sage"
                         }`}
                       >
                         {b}
@@ -229,12 +250,12 @@ function ShopPage() {
                 <div className="space-y-4">
                   <h3 className="font-medium text-sm tracking-widest uppercase text-muted-foreground">Category</h3>
                   <div className="flex flex-wrap gap-2">
-                    {CATEGORIES.map(c => (
+                    {categories.map((c) => (
                       <button
                         key={c}
                         onClick={() => updateFilters({ category: search.category === c ? undefined : c })}
                         className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
-                          search.category === c ? 'border-sage bg-sage text-white' : 'border-border bg-card text-foreground hover:border-sage'
+                          search.category === c ? "border-sage bg-sage text-white" : "border-border bg-card text-foreground hover:border-sage"
                         }`}
                       >
                         {c}

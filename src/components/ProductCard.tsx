@@ -11,6 +11,7 @@ export interface Product {
   price: number;
   priceLabel: string;
   image: string;
+  image_url?: string;
   tag?: string;
   brand?: string;
   category?: string;
@@ -18,12 +19,15 @@ export interface Product {
   description?: string;
   rating?: number;
   stock?: number;
+  mrp?: number;
 }
 
 interface ProductCardProps {
   product: Product;
   index?: number;
 }
+
+const PLACEHOLDER = "/assets/images/products/placeholder.png";
 
 const BRAND_STYLES: Record<string, { pill: string; btn: string; border: string }> = {
   Mamaearth: {
@@ -41,7 +45,22 @@ const BRAND_STYLES: Record<string, { pill: string; btn: string; border: string }
     btn:    "bg-rose-400 hover:bg-rose-500 text-white",
     border: "border-border hover:border-rose-300",
   },
+  "The Body Care": {
+    pill:   "bg-sky-500 text-white",
+    btn:    "bg-sky-500 hover:bg-sky-600 text-white",
+    border: "border-sky-100 hover:border-sky-300 hover:shadow-sky-100/60",
+  },
 };
+
+const DEFAULT_STYLE = {
+  pill:   "bg-slate-500 text-white",
+  btn:    "bg-slate-500 hover:bg-slate-600 text-white",
+  border: "border-border hover:border-slate-300",
+};
+
+function productImage(product: Product) {
+  return product.image || product.image_url || PLACEHOLDER;
+}
 
 function StarRating({ rating }: { rating: number }) {
   const full  = Math.floor(rating);
@@ -66,7 +85,9 @@ function StarRating({ rating }: { rating: number }) {
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
   const isMamaearth = product.brand === "Mamaearth";
-  const style = product.brand ? BRAND_STYLES[product.brand] : BRAND_STYLES["The Woman Company"];
+  const style = (product.brand ? BRAND_STYLES[product.brand] : null) ?? DEFAULT_STYLE;
+  const imageSrc = productImage(product);
+  const inStock = (product.stock ?? 0) > 0;
 
   return (
     <motion.article
@@ -76,9 +97,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       transition={{ duration: 0.38, delay: Math.min(index, 10) * 0.04, ease: [0.25, 0.1, 0.25, 1] }}
       className={`group flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:shadow-lg ${style.border}`}
     >
-      {/* Image */}
       <Link to="/product/$id" params={{ id: product.id }} className="relative block aspect-square overflow-hidden bg-[#FFF0F0]">
-        {/* Badge */}
         {isMamaearth ? (
           <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-emerald-500 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">
             <Leaf className="h-3 w-3" />
@@ -90,20 +109,17 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </span>
         )}
         <img
-          src={product.image}
+          src={imageSrc}
           alt={product.name}
           loading="lazy"
           width={600}
           height={600}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {/* Quick overlay */}
         <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/5" />
       </Link>
 
-      {/* Content */}
       <div className="flex flex-1 flex-col p-4">
-        {/* Brand pill */}
         {product.brand && (
           <span className={`inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${style.pill}`}>
             {product.brand}
@@ -116,26 +132,39 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </h3>
         </Link>
 
+        {product.category && (
+          <p className="mt-1 text-xs text-muted-foreground">{product.category}</p>
+        )}
+
         {product.variant && (
           <p className="mt-0.5 text-xs italic text-muted-foreground">{product.variant}</p>
         )}
 
-        {/* Rating */}
         {product.rating && (
           <div className="mt-1.5">
             <StarRating rating={product.rating} />
           </div>
         )}
 
-        {/* Price + CTA */}
         <div className="mt-auto pt-3 flex items-center justify-between gap-2">
-          <p className="text-base font-bold text-foreground">{product.priceLabel}</p>
+          <div>
+            <p className="text-base font-bold text-foreground">{product.priceLabel}</p>
+            <p className={`text-[11px] ${inStock ? "text-emerald-600" : "text-destructive"}`}>
+              {inStock ? `${product.stock} in stock` : "Out of stock"}
+            </p>
+          </div>
           <Button
             size="sm"
+            disabled={!inStock}
             className={`gap-1.5 transition-all ${style.btn}`}
             onClick={(e) => {
               e.preventDefault();
-              addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+              addItem({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: imageSrc,
+              });
               toast.success(`${product.name} added to cart`);
             }}
           >

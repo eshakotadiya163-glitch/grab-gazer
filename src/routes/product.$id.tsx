@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
@@ -10,13 +9,19 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 import { useWishlist } from "@/components/wishlist-context";
 import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/lib/data";
+import { fetchProductById, getShopCatalogFn } from "@/lib/repositories";
 
 export const Route = createFileRoute("/product/$id")({
-  loader: ({ params }) => {
-    const product = products.find((p) => p.id === params.id);
+  loader: async ({ params }) => {
+    const [product, catalog] = await Promise.all([
+      fetchProductById(params.id),
+      getShopCatalogFn(),
+    ]);
     if (!product) throw notFound();
-    return { product };
+    const related = catalog.products
+      .filter((p) => p.category === product.category && p.id !== product.id)
+      .slice(0, 4);
+    return { product, related };
   },
   head: ({ loaderData }) => ({
     meta: [
@@ -26,7 +31,7 @@ export const Route = createFileRoute("/product/$id")({
         content: loaderData?.product?.description?.slice(0, 155) ?? "Shop premium women's beauty products.",
       },
       { property: "og:title", content: loaderData?.product?.name ?? "Product" },
-      { property: "og:image", content: loaderData?.product?.image ?? "" },
+      { property: "og:image", content: loaderData?.product?.image ?? loaderData?.product?.image_url ?? "" },
     ],
   }),
   component: ProductDetailPage,
@@ -68,7 +73,7 @@ function StarRating({ rating, count }: { rating: number; count?: number }) {
 }
 
 function ProductDetailPage() {
-  const { product } = Route.useLoaderData();
+  const { product, related } = Route.useLoaderData();
   const { addItem } = useCart();
   const { has: isWished, toggle: toggleWish } = useWishlist();
   const navigate = useNavigate();
@@ -76,21 +81,18 @@ function ProductDetailPage() {
   const style = BRAND_COLORS[product.brand ?? "The Woman Company"] ?? BRAND_COLORS["The Woman Company"];
   const isMamaearth = product.brand === "Mamaearth";
   const wished = isWished(product.id);
-
-  const related = useMemo(
-    () => products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4),
-    [product],
-  );
+  const imageSrc = product.image || product.image_url || "/assets/images/products/placeholder.png";
+  const inStock = (product.stock ?? 0) > 0;
 
   const handleAddToCart = () => {
-    addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+    addItem({ id: product.id, name: product.name, price: product.price, image: imageSrc });
     toast.success(`${product.name} added to cart!`, {
       description: `${product.priceLabel} · ${product.variant ?? product.category}`,
     });
   };
 
   const handleBuyNow = () => {
-    addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+    addItem({ id: product.id, name: product.name, price: product.price, image: imageSrc });
     navigate({ to: "/checkout" });
   };
 
@@ -148,7 +150,7 @@ function ProductDetailPage() {
                   </span>
                 )}
                 <img
-                  src={product.image}
+                  src={imageSrc}
                   alt={product.name}
                   width={600}
                   height={600}
@@ -214,6 +216,7 @@ function ProductDetailPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button
                   size="lg"
+                  disabled={!inStock}
                   className={`flex-1 gap-2 sm:flex-none sm:min-w-44 ${style.btn}`}
                   onClick={handleAddToCart}
                 >
