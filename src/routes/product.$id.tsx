@@ -307,7 +307,7 @@ function ProductDetailPage() {
               </Link>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((rp, i) => (
+              {related.map((rp: Product, i: number) => (
                 <ProductCard key={rp.id} product={rp} index={i} />
               ))}
             </div>
