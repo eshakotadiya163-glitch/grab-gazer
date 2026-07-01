@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 import { useWishlist } from "@/components/wishlist-context";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard, type Product } from "@/components/ProductCard";
 import { fetchProductById, getShopCatalogFn } from "@/lib/repositories";
 
 export const Route = createFileRoute("/product/$id")({
