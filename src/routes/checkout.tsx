@@ -79,7 +79,9 @@ function CheckoutPage() {
     setIsSubmitting(true);
     try {
       const orderNumber = `ORD-${Date.now().toString(36).toUpperCase()}`;
-      const order = await ordersRepo.create({
+      const orderId = (globalThis.crypto as any).randomUUID();
+      const { error: oErr } = await supabase.from("orders").insert({
+        id: orderId,
         order_number: orderNumber,
         customer_id: user?.id ?? null,
         customer_name: data.customerName,
@@ -89,15 +91,19 @@ function CheckoutPage() {
         subtotal: totalPrice, shipping, total,
         status: "pending", payment_status: "unpaid",
       } as any);
-      await Promise.all(items.map((it) => orderItemsRepo.create({
-        order_id: (order as any).id,
-        product_id: it.id.length === 36 ? it.id : null,
-        product_name: it.name, product_image: it.image,
-        unit_price: it.price, quantity: it.quantity, subtotal: it.price * it.quantity,
-      } as any)));
+      if (oErr) throw oErr;
+      const { error: iErr } = await supabase.from("order_items").insert(
+        items.map((it) => ({
+          order_id: orderId,
+          product_id: it.id.length === 36 ? it.id : null,
+          product_name: it.name, product_image: it.image,
+          unit_price: it.price, quantity: it.quantity, subtotal: it.price * it.quantity,
+        })) as any,
+      );
+      if (iErr) throw iErr;
       clearCart();
       toast.success("Order placed!");
-      await navigate({ to: "/order-confirmation", search: { orderId: (order as any).order_number, total: String(total) } });
+      await navigate({ to: "/order-confirmation", search: { orderId: orderNumber, total: String(total) } });
     } catch (err: any) {
       toast.error(err?.message ?? "Something went wrong. Please try again.");
     } finally {
