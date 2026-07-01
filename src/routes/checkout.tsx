@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/components/cart-context";
-import { ordersRepo, orderItemsRepo } from "@/lib/repositories";
+import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth-context";
 
 export const Route = createFileRoute("/checkout")({
