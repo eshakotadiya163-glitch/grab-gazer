@@ -114,7 +114,7 @@ export function mapProductRow(row: DbProductRow): Product {
   };
 }
 
-async function fetchActiveProducts(limit?: number) {
+async function fetchActiveProducts(limit?: number): Promise<DbProductRow[]> {
   let q = supabase
     .from("products")
     .select(PRODUCT_SELECT)
@@ -124,25 +124,17 @@ async function fetchActiveProducts(limit?: number) {
   if (limit) q = q.limit(limit);
 
   const { data, error } = await q;
-  // #region agent log
-  fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "f9e79c" },
-    body: JSON.stringify({
-      sessionId: "f9e79c",
-      location: "repositories.ts:fetchActiveProducts",
-      message: "Supabase products query result",
-      data: { count: data?.length ?? 0, error: error?.message ?? null, limit: limit ?? null },
-      timestamp: Date.now(),
-      hypothesisId: "A",
-    }),
-  }).catch(() => {});
-  // #endregion
   if (error) throw error;
-  return (data ?? []) as DbProductRow[];
+  return (data ?? []) as unknown as DbProductRow[];
 }
 
-export async function fetchShopCatalog() {
+export interface ShopCatalog {
+  products: Product[];
+  brands: string[];
+  categories: string[];
+}
+
+export async function fetchShopCatalog(): Promise<ShopCatalog> {
   const rows = await fetchActiveProducts();
   const products = rows.map(mapProductRow);
   const brands = [...new Set(products.map((p) => p.brand).filter(Boolean))].sort() as string[];
@@ -150,7 +142,7 @@ export async function fetchShopCatalog() {
   return { products, brands, categories };
 }
 
-export async function fetchFeaturedProducts(limit = 8) {
+export async function fetchFeaturedProducts(limit = 8): Promise<Product[]> {
   const rows = await fetchActiveProducts(limit);
   return rows.map(mapProductRow);
 }
