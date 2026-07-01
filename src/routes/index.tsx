@@ -6,11 +6,12 @@ import { ProductCard } from "@/components/ProductCard";
 import { BlogCard } from "@/components/BlogCard";
 import { blogPosts } from "@/lib/data";
 import { getFeaturedProductsFn } from "@/lib/repositories";
+import type { Product } from "@/components/ProductCard";
 
 import heroImage from "@/assets/hero-products.jpg";
 
 export const Route = createFileRoute("/")({
-  loader: () => getFeaturedProductsFn(),
+  loader: async (): Promise<Product[]> => await getFeaturedProductsFn(),
   head: () => ({
     meta: [
       { title: "The Woman's Company — Sustainable Feminine Hygiene" },
@@ -34,7 +35,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const featuredProducts = Route.useLoaderData();
+  const featuredProducts = Route.useLoaderData() as Product[];
 
   return (
     <main className="min-h-screen">

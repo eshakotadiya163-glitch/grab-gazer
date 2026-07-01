@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 import { useWishlist } from "@/components/wishlist-context";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard, type Product } from "@/components/ProductCard";
 import { fetchProductById, getShopCatalogFn } from "@/lib/repositories";
 
 export const Route = createFileRoute("/product/$id")({
@@ -307,7 +307,7 @@ function ProductDetailPage() {
               </Link>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((rp, i) => (
+              {related.map((rp: Product, i: number) => (
                 <ProductCard key={rp.id} product={rp} index={i} />
               ))}
             </div>

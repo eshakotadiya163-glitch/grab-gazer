@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, SlidersHorizontal, PackageOpen, Loader2 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/ProductCard";
-import { getShopCatalogFn } from "@/lib/repositories";
+import { ProductCard, type Product } from "@/components/ProductCard";
+import { getShopCatalogFn, type ShopCatalog } from "@/lib/repositories";
 
 const searchSchema = z.object({
   q: z.string().optional(),
@@ -17,28 +17,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/shop")({
   validateSearch: searchSchema,
-  loader: async () => {
-    const catalog = await getShopCatalogFn();
-    // #region agent log
-    fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "f9e79c" },
-      body: JSON.stringify({
-        sessionId: "f9e79c",
-        location: "shop.tsx:loader",
-        message: "Shop catalog loaded",
-        data: {
-          productCount: catalog.products.length,
-          brandCount: catalog.brands.length,
-          categoryCount: catalog.categories.length,
-        },
-        timestamp: Date.now(),
-        hypothesisId: "B",
-      }),
-    }).catch(() => {});
-    // #endregion
-    return catalog;
-  },
+  loader: async (): Promise<ShopCatalog> => await getShopCatalogFn(),
   head: () => ({
     meta: [
       { title: "Shop — The Woman's Company" },
@@ -54,7 +33,7 @@ export const Route = createFileRoute("/shop")({
 });
 
 function ShopPage() {
-  const { products, brands, categories } = Route.useLoaderData();
+  const { products, brands, categories } = Route.useLoaderData() as ShopCatalog;
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
 
