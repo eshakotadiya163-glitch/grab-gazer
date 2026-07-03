@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, ShoppingBag, Menu, X, ShieldCheck, Store } from "lucide-react";
+import { Search, User, ShoppingBag, Menu, X, ShieldCheck, Store, PackageOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 import { useAuth } from "@/components/auth-context";
@@ -17,7 +17,7 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const navigate = useNavigate();
   const { totalItems } = useCart();
-  const { isAdmin, isVendor } = useAuth();
+  const { isAdmin, isVendor, user } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -63,11 +63,19 @@ export function Header() {
                 <Link to="/vendor"><Store className="h-5 w-5 text-sage-deep" /></Link>
               </Button>
             )}
-            <Button variant="ghost" size="icon" className="shrink-0" aria-label="Login" asChild>
-              <Link to="/login">
-                <User className="h-5 w-5" />
-              </Link>
-            </Button>
+            {user ? (
+              <Button variant="ghost" size="icon" className="shrink-0" aria-label="My Orders" asChild>
+                <Link to="/my-orders">
+                  <PackageOpen className="h-5 w-5" />
+                </Link>
+              </Button>
+            ) : (
+              <Button variant="ghost" size="icon" className="shrink-0" aria-label="Login" asChild>
+                <Link to="/login">
+                  <User className="h-5 w-5" />
+                </Link>
+              </Button>
+            )}
             <Button variant="ghost" size="icon" className="relative shrink-0" aria-label="Cart" asChild>
               <Link to="/cart">
                 <ShoppingBag className="h-5 w-5" />
@@ -129,6 +137,15 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            {user && (
+              <Link
+                to="/my-orders"
+                className="py-3 text-base font-medium text-foreground transition-colors hover:text-sage-deep"
+                onClick={() => setMobileOpen(false)}
+              >
+                My Orders
+              </Link>
+            )}
           </nav>
         </div>
       )}
