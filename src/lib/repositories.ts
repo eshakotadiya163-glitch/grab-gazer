@@ -96,6 +96,15 @@ type DbProductRow = {
   categories: { name: string } | null;
 };
 
+/** Server-side catalog reads prefer the service-role client (bypasses RLS). */
+async function getCatalogSupabase() {
+  if (typeof window === "undefined" && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    return supabaseAdmin;
+  }
+  return supabase;
+}
+
 export function mapProductRow(row: DbProductRow): Product {
   const price = Number(row.price);
   return {
@@ -115,7 +124,10 @@ export function mapProductRow(row: DbProductRow): Product {
 }
 
 async function fetchActiveProducts(limit?: number) {
-  let q = supabase
+  const client = await getCatalogSupabase();
+  const usingAdmin = typeof window === "undefined" && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  let q = client
     .from("products")
     .select(PRODUCT_SELECT)
     .eq("status", "active")
@@ -124,20 +136,56 @@ async function fetchActiveProducts(limit?: number) {
   if (limit) q = q.limit(limit);
 
   const { data, error } = await q;
+
   // #region agent log
   fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
     method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "f9e79c" },
+    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e962c0" },
     body: JSON.stringify({
-      sessionId: "f9e79c",
+      sessionId: "e962c0",
       location: "repositories.ts:fetchActiveProducts",
       message: "Supabase products query result",
-      data: { count: data?.length ?? 0, error: error?.message ?? null, limit: limit ?? null },
+      data: {
+        count: data?.length ?? 0,
+        error: error?.message ?? null,
+        errorCode: error?.code ?? null,
+        limit: limit ?? null,
+        usingAdmin,
+        sampleStatuses: (data ?? []).slice(0, 5).map((r) => r.status),
+        sampleBrand: (data ?? [])[0]?.brands?.name ?? null,
+        sampleCategory: (data ?? [])[0]?.categories?.name ?? null,
+      },
       timestamp: Date.now(),
       hypothesisId: "A",
     }),
   }).catch(() => {});
   // #endregion
+
+  console.log("[fetchActiveProducts]", {
+    count: data?.length ?? 0,
+    error: error?.message ?? null,
+    usingAdmin,
+  });
+
+  if ((data?.length ?? 0) === 0 && !usingAdmin && !error) {
+    const unfiltered = await supabase.from("products").select("status", { count: "exact", head: true });
+    // #region agent log
+    fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e962c0" },
+      body: JSON.stringify({
+        sessionId: "e962c0",
+        location: "repositories.ts:fetchActiveProducts:rls-check",
+        message: "Unfiltered anon count when active filter returned 0",
+        data: { unfilteredCount: unfiltered.count, unfilteredError: unfiltered.error?.message ?? null },
+        timestamp: Date.now(),
+        hypothesisId: "C",
+      }),
+    }).catch(() => {});
+    // #endregion
+    console.log("[fetchActiveProducts] anon unfiltered count:", unfiltered.count, unfiltered.error?.message ?? null);
+  }
+
   if (error) throw error;
   return (data ?? []) as DbProductRow[];
 }
@@ -156,8 +204,9 @@ export async function fetchFeaturedProducts(limit = 8) {
 }
 
 export async function fetchProductById(idOrSlug: string): Promise<Product | null> {
+  const client = await getCatalogSupabase();
   const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
-  let q = supabase.from("products").select(PRODUCT_SELECT).eq("status", "active");
+  let q = client.from("products").select(PRODUCT_SELECT).eq("status", "active");
   q = isUuid ? q.eq("id", idOrSlug) : q.eq("slug", idOrSlug);
   const { data, error } = await q.maybeSingle();
   if (error) throw error;

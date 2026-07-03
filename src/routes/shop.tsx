@@ -22,9 +22,9 @@ export const Route = createFileRoute("/shop")({
     // #region agent log
     fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "f9e79c" },
+      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e962c0" },
       body: JSON.stringify({
-        sessionId: "f9e79c",
+        sessionId: "e962c0",
         location: "shop.tsx:loader",
         message: "Shop catalog loaded",
         data: {
@@ -37,6 +37,11 @@ export const Route = createFileRoute("/shop")({
       }),
     }).catch(() => {});
     // #endregion
+    console.log("[shop loader]", {
+      productCount: catalog.products.length,
+      brandCount: catalog.brands.length,
+      categoryCount: catalog.categories.length,
+    });
     return catalog;
   },
   head: () => ({
