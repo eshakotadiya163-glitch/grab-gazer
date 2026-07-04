@@ -59,7 +59,7 @@ export const Route = createFileRoute("/shop")({
 });
 
 function ShopPage() {
-  const { products, brands, categories } = Route.useLoaderData();
+  const { products, brands, categories } = Route.useLoaderData() as import("@/lib/repositories").ShopCatalog;
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
 

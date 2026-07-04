@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const featuredProducts = Route.useLoaderData();
+  const featuredProducts = Route.useLoaderData() as import("@/components/ProductCard").Product[];
 
   return (
     <main className="min-h-screen">
