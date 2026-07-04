@@ -312,12 +312,16 @@ export type Database = {
           id: string
           notes: string | null
           order_number: string
+          payment_method: string | null
+          payment_reference: string | null
+          payment_screenshot_url: string | null
           payment_status: string
           pincode: string | null
           shipping: number
           state: string | null
           status: string
           subtotal: number
+          tax: number
           total: number
           updated_at: string
         }
@@ -334,12 +338,16 @@ export type Database = {
           id?: string
           notes?: string | null
           order_number: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          payment_screenshot_url?: string | null
           payment_status?: string
           pincode?: string | null
           shipping?: number
           state?: string | null
           status?: string
           subtotal?: number
+          tax?: number
           total?: number
           updated_at?: string
         }
@@ -356,12 +364,16 @@ export type Database = {
           id?: string
           notes?: string | null
           order_number?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          payment_screenshot_url?: string | null
           payment_status?: string
           pincode?: string | null
           shipping?: number
           state?: string | null
           status?: string
           subtotal?: number
+          tax?: number
           total?: number
           updated_at?: string
         }
