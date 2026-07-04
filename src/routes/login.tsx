@@ -90,9 +90,7 @@ function LoginPage() {
                 setLoading(false);
                 if (!res.ok) { toast.error(res.error ?? "Could not sign in"); return; }
                 toast.success("Signed in");
-                const dest = (Route.useSearch as any) ? undefined : undefined;
-                const search = Route.useSearch();
-                await navigate({ to: (search.redirect as any) || "/" });
+                await navigate({ to: (search.redirect as string | undefined) || "/" });
               }} className="space-y-4">
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium">Email</label>
