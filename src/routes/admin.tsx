@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
 import { useAuth } from "@/components/auth-context";
 import { DashboardLayout, type NavItem } from "@/components/admin/DashboardLayout";
-import { LayoutDashboard, BarChart3, Package, ListTree, Award, Boxes, ShoppingCart, Users, Star, Ticket, Image, BookOpen, Settings, Store } from "lucide-react";
+import { LayoutDashboard, BarChart3, Package, ListTree, Award, Boxes, ShoppingCart, Users, Star, Ticket, Image, BookOpen, Settings, Store, Wallet } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({ component: AdminLayout });
 
