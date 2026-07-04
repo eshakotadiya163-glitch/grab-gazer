@@ -6,7 +6,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth-context";
 
+import { z } from "zod";
+
 export const Route = createFileRoute("/login")({
+  validateSearch: z.object({ redirect: z.string().optional() }),
   head: () => ({
     meta: [
       { title: "Login — The Woman's Company" },
