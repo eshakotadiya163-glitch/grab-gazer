@@ -190,7 +190,9 @@ async function fetchActiveProducts(limit?: number) {
   return (data ?? []) as DbProductRow[];
 }
 
-export async function fetchShopCatalog() {
+export interface ShopCatalog { products: Product[]; brands: string[]; categories: string[] }
+
+export async function fetchShopCatalog(): Promise<ShopCatalog> {
   const rows = await fetchActiveProducts();
   const products = rows.map(mapProductRow);
   const brands = [...new Set(products.map((p) => p.brand).filter(Boolean))].sort() as string[];
@@ -198,7 +200,7 @@ export async function fetchShopCatalog() {
   return { products, brands, categories };
 }
 
-export async function fetchFeaturedProducts(limit = 8) {
+export async function fetchFeaturedProducts(limit = 8): Promise<Product[]> {
   const rows = await fetchActiveProducts(limit);
   return rows.map(mapProductRow);
 }
@@ -214,15 +216,17 @@ export async function fetchProductById(idOrSlug: string): Promise<Product | null
   return mapProductRow(data as DbProductRow);
 }
 
-export const getShopCatalogFn = createServerFn({ method: "GET" }).handler(async () => fetchShopCatalog());
+export const getShopCatalogFn = createServerFn({ method: "GET" }).handler(
+  async (): Promise<ShopCatalog> => fetchShopCatalog(),
+);
 
-export const getFeaturedProductsFn = createServerFn({ method: "GET" }).handler(async () =>
-  fetchFeaturedProducts(8),
+export const getFeaturedProductsFn = createServerFn({ method: "GET" }).handler(
+  async (): Promise<Product[]> => fetchFeaturedProducts(8),
 );
 
 export const getProductByIdFn = createServerFn({ method: "GET" })
   .validator((data: { id: string }) => data)
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<Product> => {
     const product = await fetchProductById(data.id);
     if (!product) throw new Error("Product not found");
     return product;
