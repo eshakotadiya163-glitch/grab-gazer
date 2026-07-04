@@ -16,6 +16,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ReturnsRouteImport } from './routes/returns'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OrderConfirmationRouteImport } from './routes/order-confirmation'
 import { Route as MyOrdersRouteImport } from './routes/my-orders'
@@ -86,6 +87,11 @@ const ShopRoute = ShopRouteImport.update({
 const ReturnsRoute = ReturnsRouteImport.update({
   id: '/returns',
   path: '/returns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -282,6 +288,7 @@ export interface FileRoutesByFullPath {
   '/my-orders': typeof MyOrdersRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/returns': typeof ReturnsRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
@@ -326,6 +333,7 @@ export interface FileRoutesByTo {
   '/my-orders': typeof MyOrdersRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/returns': typeof ReturnsRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
@@ -371,6 +379,7 @@ export interface FileRoutesById {
   '/my-orders': typeof MyOrdersRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/returns': typeof ReturnsRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
@@ -418,6 +427,7 @@ export interface FileRouteTypes {
     | '/my-orders'
     | '/order-confirmation'
     | '/privacy'
+    | '/profile'
     | '/returns'
     | '/shop'
     | '/signup'
@@ -462,6 +472,7 @@ export interface FileRouteTypes {
     | '/my-orders'
     | '/order-confirmation'
     | '/privacy'
+    | '/profile'
     | '/returns'
     | '/shop'
     | '/signup'
@@ -506,6 +517,7 @@ export interface FileRouteTypes {
     | '/my-orders'
     | '/order-confirmation'
     | '/privacy'
+    | '/profile'
     | '/returns'
     | '/shop'
     | '/signup'
@@ -552,6 +564,7 @@ export interface RootRouteChildren {
   MyOrdersRoute: typeof MyOrdersRoute
   OrderConfirmationRoute: typeof OrderConfirmationRoute
   PrivacyRoute: typeof PrivacyRoute
+  ProfileRoute: typeof ProfileRoute
   ReturnsRoute: typeof ReturnsRoute
   ShopRoute: typeof ShopRoute
   SignupRoute: typeof SignupRoute
@@ -611,6 +624,13 @@ declare module '@tanstack/react-router' {
       path: '/returns'
       fullPath: '/returns'
       preLoaderRoute: typeof ReturnsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -952,6 +972,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyOrdersRoute: MyOrdersRoute,
   OrderConfirmationRoute: OrderConfirmationRoute,
   PrivacyRoute: PrivacyRoute,
+  ProfileRoute: ProfileRoute,
   ReturnsRoute: ReturnsRoute,
   ShopRoute: ShopRoute,
   SignupRoute: SignupRoute,
