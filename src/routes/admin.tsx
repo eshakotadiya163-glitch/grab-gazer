@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
 import { useAuth } from "@/components/auth-context";
 import { DashboardLayout, type NavItem } from "@/components/admin/DashboardLayout";
-import { LayoutDashboard, BarChart3, Package, ListTree, Award, Boxes, ShoppingCart, Users, Star, Ticket, Image, BookOpen, Settings, Store } from "lucide-react";
+import { LayoutDashboard, BarChart3, Package, ListTree, Award, Boxes, ShoppingCart, Users, Star, Ticket, Image, BookOpen, Settings, Store, Wallet } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({ component: AdminLayout });
 
@@ -14,6 +14,7 @@ const NAV: NavItem[] = [
   { to: "/admin/vendors", label: "Vendors", icon: Store },
   { to: "/admin/inventory", label: "Inventory", icon: Boxes },
   { to: "/admin/orders", label: "Orders", icon: ShoppingCart },
+  { to: "/admin/payments", label: "Payments", icon: Wallet },
   { to: "/admin/customers", label: "Customers", icon: Users },
   { to: "/admin/reviews", label: "Reviews", icon: Star },
   { to: "/admin/coupons", label: "Coupons", icon: Ticket },

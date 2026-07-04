@@ -6,7 +6,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth-context";
 
+import { z } from "zod";
+
 export const Route = createFileRoute("/login")({
+  validateSearch: z.object({ redirect: z.string().optional() }),
   head: () => ({
     meta: [
       { title: "Login — The Woman's Company" },
@@ -21,6 +24,7 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const { login, signInWithGoogle, user, logout, isAdmin, isVendor } = useAuth();
   const navigate = useNavigate();
+  const search = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -86,7 +90,7 @@ function LoginPage() {
                 setLoading(false);
                 if (!res.ok) { toast.error(res.error ?? "Could not sign in"); return; }
                 toast.success("Signed in");
-                navigate({ to: "/" });
+                await navigate({ to: (search.redirect as string | undefined) || "/" });
               }} className="space-y-4">
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium">Email</label>

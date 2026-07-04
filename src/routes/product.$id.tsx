@@ -73,7 +73,7 @@ function StarRating({ rating, count }: { rating: number; count?: number }) {
 }
 
 function ProductDetailPage() {
-  const { product, related } = Route.useLoaderData();
+  const { product, related } = Route.useLoaderData() as { product: import("@/components/ProductCard").Product; related: import("@/components/ProductCard").Product[] };
   const { addItem } = useCart();
   const { has: isWished, toggle: toggleWish } = useWishlist();
   const navigate = useNavigate();
