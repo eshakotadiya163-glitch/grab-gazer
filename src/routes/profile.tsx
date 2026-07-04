@@ -366,26 +366,37 @@ function Orders() {
 
 /* ─── WISHLIST ─────────────────────────────────── */
 function WishlistPanel() {
-  const { items, remove } = useWishlist();
-  if (items.length === 0) return (
+  const { ids, toggle } = useWishlist();
+  const { data: items = [], isLoading } = useQuery({
+    queryKey: ["wishlist-products", ids],
+    enabled: ids.length > 0,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("products" as never)
+        .select("id, name, price, image_url, slug").in("id", ids);
+      if (error) throw error;
+      return (data ?? []) as any[];
+    },
+  });
+  if (ids.length === 0) return (
     <div className="rounded-2xl border border-dashed p-10 text-center">
       <Heart className="mx-auto h-10 w-10 text-muted-foreground/40" />
       <p className="mt-3 font-medium">Your wishlist is empty</p>
       <Button asChild className="mt-4 bg-sage text-white hover:bg-sage-deep"><Link to="/shop">Discover products</Link></Button>
     </div>
   );
+  if (isLoading) return <p className="text-sm text-muted-foreground">Loading…</p>;
   return (
     <div className="grid gap-3 sm:grid-cols-2">
-      {items.map((p) => (
+      {items.map((p: any) => (
         <div key={p.id} className="flex gap-3 rounded-2xl border bg-card p-3">
-          <img src={p.image} alt="" className="h-20 w-20 rounded-lg object-cover" />
+          <img src={p.image_url} alt="" className="h-20 w-20 rounded-lg object-cover" />
           <div className="min-w-0 flex-1">
-            <Link to="/product/$id" params={{ id: p.id }} className="line-clamp-2 text-sm font-medium hover:underline">{p.name}</Link>
+            <Link to="/product/$id" params={{ id: p.slug ?? p.id }} className="line-clamp-2 text-sm font-medium hover:underline">{p.name}</Link>
             <p className="mt-1 text-sm text-sage-deep font-semibold">₹{p.price}</p>
             <div className="mt-2 flex gap-2">
-              <Button size="sm" variant="outline" onClick={() => remove(p.id)}>Remove</Button>
+              <Button size="sm" variant="outline" onClick={() => toggle(p.id)}>Remove</Button>
               <Button asChild size="sm" className="bg-sage text-white hover:bg-sage-deep">
-                <Link to="/product/$id" params={{ id: p.id }}>View</Link>
+                <Link to="/product/$id" params={{ id: p.slug ?? p.id }}>View</Link>
               </Button>
             </div>
           </div>
