@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, ShoppingBag, Menu, X, ShieldCheck, Store, PackageOpen } from "lucide-react";
+import { Search, User, ShoppingBag, Menu, X, ShieldCheck, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 import { useAuth } from "@/components/auth-context";
@@ -64,9 +64,9 @@ export function Header() {
               </Button>
             )}
             {user ? (
-              <Button variant="ghost" size="icon" className="shrink-0" aria-label="My Orders" asChild>
-                <Link to="/my-orders">
-                  <PackageOpen className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="shrink-0" aria-label="Profile" asChild>
+                <Link to="/profile">
+                  <User className="h-5 w-5" />
                 </Link>
               </Button>
             ) : (
