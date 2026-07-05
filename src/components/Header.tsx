@@ -64,9 +64,9 @@ export function Header() {
               </Button>
             )}
             {user ? (
-              <Button variant="ghost" size="icon" className="shrink-0" aria-label="My Orders" asChild>
-                <Link to="/my-orders">
-                  <PackageOpen className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="shrink-0" aria-label="Profile" asChild>
+                <Link to="/profile">
+                  <User className="h-5 w-5" />
                 </Link>
               </Button>
             ) : (
