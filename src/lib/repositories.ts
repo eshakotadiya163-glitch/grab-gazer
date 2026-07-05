@@ -224,6 +224,10 @@ export const getFeaturedProductsFn = createServerFn({ method: "GET" }).handler(
   async (): Promise<Product[]> => fetchFeaturedProducts(8),
 );
 
+export const getHomeProductsFn = createServerFn({ method: "GET" }).handler(
+  async (): Promise<Product[]> => fetchFeaturedProducts(16),
+);
+
 export const getProductByIdFn = createServerFn({ method: "GET" })
   .validator((data: { id: string }) => data)
   .handler(async ({ data }): Promise<Product> => {
