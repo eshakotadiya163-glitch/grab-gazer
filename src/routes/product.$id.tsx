@@ -74,6 +74,7 @@ function ProductDetailPage() {
               <img 
                 src={imageSrc} 
                 alt={product.name} 
+                onError={(e) => (e.target as HTMLImageElement).src = "/assets/images/products/placeholder.png"}
                 className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-125"
               />
               <button 
@@ -85,7 +86,7 @@ function ProductDetailPage() {
             </div>
             <div className="flex gap-2 mt-4 overflow-x-auto hide-scrollbar">
               <div className="w-20 h-20 border-2 border-primary rounded-sm p-1 cursor-pointer">
-                <img src={imageSrc} className="w-full h-full object-contain" />
+                <img src={imageSrc} onError={(e) => (e.target as HTMLImageElement).src = "/assets/images/products/placeholder.png"} className="w-full h-full object-contain" />
               </div>
             </div>
           </div>

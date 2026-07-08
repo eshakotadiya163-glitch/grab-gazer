@@ -52,7 +52,7 @@ function HomePage() {
   
   // Valid local images filter
   const validProducts = useMemo(() => allProducts.filter(p => {
-    const img = p.image || p.image_url || "";
+    const img = p.image_url || p.image || "";
     return img.startsWith("/assets/images/");
   }), [allProducts]);
 

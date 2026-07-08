@@ -86,6 +86,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             src={imageSrc}
             alt={product.name}
             loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = PLACEHOLDER;
+            }}
             className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
         </Link>
