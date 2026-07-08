@@ -124,70 +124,18 @@ export function mapProductRow(row: DbProductRow): Product {
 }
 
 async function fetchActiveProducts(limit?: number) {
-  const client = await getCatalogSupabase();
-  const usingAdmin = typeof window === "undefined" && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  let q = client
-    .from("products")
-    .select(PRODUCT_SELECT)
-    .eq("status", "active")
-    .order("name");
-
-  if (limit) q = q.limit(limit);
-
-  const { data, error } = await q;
-
-  // #region agent log
-  fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e962c0" },
-    body: JSON.stringify({
-      sessionId: "e962c0",
-      location: "repositories.ts:fetchActiveProducts",
-      message: "Supabase products query result",
-      data: {
-        count: data?.length ?? 0,
-        error: error?.message ?? null,
-        errorCode: error?.code ?? null,
-        limit: limit ?? null,
-        usingAdmin,
-        sampleStatuses: (data ?? []).slice(0, 5).map((r) => r.status),
-        sampleBrand: (data ?? [])[0]?.brands?.name ?? null,
-        sampleCategory: (data ?? [])[0]?.categories?.name ?? null,
-      },
-      timestamp: Date.now(),
-      hypothesisId: "A",
-    }),
-  }).catch(() => {});
-  // #endregion
-
-  console.log("[fetchActiveProducts]", {
-    count: data?.length ?? 0,
-    error: error?.message ?? null,
-    usingAdmin,
+  const { data: result, error } = await supabase.functions.invoke('get-products', {
+    body: { action: 'list' }
   });
 
-  if ((data?.length ?? 0) === 0 && !usingAdmin && !error) {
-    const unfiltered = await supabase.from("products").select("status", { count: "exact", head: true });
-    // #region agent log
-    fetch("http://127.0.0.1:7442/ingest/69f67413-2d8e-4ac6-aadb-9860c8687794", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e962c0" },
-      body: JSON.stringify({
-        sessionId: "e962c0",
-        location: "repositories.ts:fetchActiveProducts:rls-check",
-        message: "Unfiltered anon count when active filter returned 0",
-        data: { unfilteredCount: unfiltered.count, unfilteredError: unfiltered.error?.message ?? null },
-        timestamp: Date.now(),
-        hypothesisId: "C",
-      }),
-    }).catch(() => {});
-    // #endregion
-    console.log("[fetchActiveProducts] anon unfiltered count:", unfiltered.count, unfiltered.error?.message ?? null);
+  if (error || result?.error) {
+    console.error("[fetchActiveProducts] Edge Function Error:", error || result?.error);
+    throw error || new Error(result?.error);
   }
 
-  if (error) throw error;
-  return (data ?? []) as DbProductRow[];
+  let products = (result?.data ?? []) as DbProductRow[];
+  if (limit) products = products.slice(0, limit);
+  return products;
 }
 
 export interface ShopCatalog { products: Product[]; brands: string[]; categories: string[] }
@@ -206,14 +154,17 @@ export async function fetchFeaturedProducts(limit = 8): Promise<Product[]> {
 }
 
 export async function fetchProductById(idOrSlug: string): Promise<Product | null> {
-  const client = await getCatalogSupabase();
-  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
-  let q = client.from("products").select(PRODUCT_SELECT).eq("status", "active");
-  q = isUuid ? q.eq("id", idOrSlug) : q.eq("slug", idOrSlug);
-  const { data, error } = await q.maybeSingle();
-  if (error) throw error;
-  if (!data) return null;
-  return mapProductRow(data as DbProductRow);
+  const { data: result, error } = await supabase.functions.invoke('get-products', {
+    body: { action: 'get_by_id', id: idOrSlug }
+  });
+
+  if (error || result?.error) {
+    console.error("[fetchProductById] Edge Function Error:", error || result?.error);
+    throw error || new Error(result?.error);
+  }
+
+  if (!result?.data) return null;
+  return mapProductRow(result.data as DbProductRow);
 }
 
 export const getShopCatalogFn = createServerFn({ method: "GET" }).handler(
