@@ -124,18 +124,25 @@ export function mapProductRow(row: DbProductRow): Product {
 }
 
 async function fetchActiveProducts(limit?: number) {
-  const { data: result, error } = await supabase.functions.invoke('get-products', {
-    body: { action: 'list' }
-  });
+  const client = await getCatalogSupabase();
+  const usingAdmin = typeof window === "undefined" && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (error || result?.error) {
-    console.error("[fetchActiveProducts] Edge Function Error:", error || result?.error);
-    throw error || new Error(result?.error);
+  let q = client
+    .from("products")
+    .select(PRODUCT_SELECT)
+    .eq("status", "active")
+    .order("name");
+
+  if (limit) q = q.limit(limit);
+
+  const { data, error } = await q;
+
+  if (error) {
+    console.error("[fetchActiveProducts] Error:", error.message);
+    throw error;
   }
 
-  let products = (result?.data ?? []) as DbProductRow[];
-  if (limit) products = products.slice(0, limit);
-  return products;
+  return (data ?? []) as DbProductRow[];
 }
 
 export interface ShopCatalog { products: Product[]; brands: string[]; categories: string[] }
@@ -154,17 +161,14 @@ export async function fetchFeaturedProducts(limit = 8): Promise<Product[]> {
 }
 
 export async function fetchProductById(idOrSlug: string): Promise<Product | null> {
-  const { data: result, error } = await supabase.functions.invoke('get-products', {
-    body: { action: 'get_by_id', id: idOrSlug }
-  });
-
-  if (error || result?.error) {
-    console.error("[fetchProductById] Edge Function Error:", error || result?.error);
-    throw error || new Error(result?.error);
-  }
-
-  if (!result?.data) return null;
-  return mapProductRow(result.data as DbProductRow);
+  const client = await getCatalogSupabase();
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+  let q = client.from("products").select(PRODUCT_SELECT).eq("status", "active");
+  q = isUuid ? q.eq("id", idOrSlug) : q.eq("slug", idOrSlug);
+  const { data, error } = await q.maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  return mapProductRow(data as DbProductRow);
 }
 
 export const getShopCatalogFn = createServerFn({ method: "GET" }).handler(
