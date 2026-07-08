@@ -14,9 +14,92 @@ const searchSchema = z.object({
   sort: z.string().optional(),
 });
 
+const FALLBACK_PRODUCTS = [
+  {
+    id: "fb-1",
+    name: "Lip Lightening Scrub",
+    brand: "The Woman Company",
+    category: "Skin Care",
+    price: 349,
+    mrp: 499,
+    priceLabel: "₹349",
+    image: "/assets/images/products/lip-lightening-scrub.png",
+    image_url: "/assets/images/products/lip-lightening-scrub.png",
+    stock: 10,
+    tag: "Bestseller"
+  },
+  {
+    id: "fb-2",
+    name: "Bamboo Razors",
+    brand: "The Woman Company",
+    category: "Body Care",
+    price: 299,
+    mrp: 399,
+    priceLabel: "₹299",
+    image: "/assets/images/products/bamboo-razors.png",
+    image_url: "/assets/images/products/bamboo-razors.png",
+    stock: 15,
+  },
+  {
+    id: "fb-3",
+    name: "Eau De Parfum Bawsy",
+    brand: "The Woman Company",
+    category: "Fragrances",
+    price: 899,
+    mrp: 1299,
+    priceLabel: "₹899",
+    image: "/assets/images/products/eau-de-parfum-bawsy.png",
+    image_url: "/assets/images/products/eau-de-parfum-bawsy.png",
+    stock: 5,
+  },
+  {
+    id: "fb-4",
+    name: "Under Eye Cream",
+    brand: "The Woman Company",
+    category: "Skin Care",
+    price: 499,
+    mrp: 599,
+    priceLabel: "₹499",
+    image: "/assets/images/products/under-eye-cream.png",
+    image_url: "/assets/images/products/under-eye-cream.png",
+    stock: 20,
+  },
+  {
+    id: "fb-5",
+    name: "Coffee Body Scrub",
+    brand: "The Woman Company",
+    category: "Body Care",
+    price: 399,
+    mrp: 549,
+    priceLabel: "₹399",
+    image: "/assets/images/products/coffee-body-scrub.png",
+    image_url: "/assets/images/products/coffee-body-scrub.png",
+    stock: 12,
+  },
+];
+
 export const Route = createFileRoute("/shop")({
   validateSearch: searchSchema,
-  loader: async () => await getShopCatalogFn(),
+  loader: async () => {
+    try {
+      const data = await getShopCatalogFn();
+      if (!data || !data.products || data.products.length === 0) {
+        return { 
+          products: FALLBACK_PRODUCTS, 
+          brands: ["The Woman Company"], 
+          categories: ["Skin Care", "Body Care", "Fragrances"] 
+        };
+      }
+      return data;
+    } catch (error) {
+      console.error('Shop loader error:', error);
+      return { 
+        products: FALLBACK_PRODUCTS, 
+        brands: ["The Woman Company"], 
+        categories: ["Skin Care", "Body Care", "Fragrances"] 
+      };
+    }
+  },
   head: () => ({
     meta: [
       { title: "Shop Beauty & Cosmetics — The Women Company" },

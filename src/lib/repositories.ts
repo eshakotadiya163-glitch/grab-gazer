@@ -139,7 +139,7 @@ async function fetchActiveProducts(limit?: number) {
 
   if (error) {
     console.error("[fetchActiveProducts] Error:", error.message);
-    throw error;
+    return [];
   }
 
   return (data ?? []) as DbProductRow[];
@@ -166,7 +166,10 @@ export async function fetchProductById(idOrSlug: string): Promise<Product | null
   let q = client.from("products").select(PRODUCT_SELECT).eq("status", "active");
   q = isUuid ? q.eq("id", idOrSlug) : q.eq("slug", idOrSlug);
   const { data, error } = await q.maybeSingle();
-  if (error) throw error;
+  if (error) {
+    console.error("[fetchProductById] Error:", error.message);
+    return null;
+  }
   if (!data) return null;
   return mapProductRow(data as DbProductRow);
 }
@@ -185,8 +188,12 @@ export const getHomeProductsFn = createServerFn({ method: "GET" }).handler(
 
 export const getProductByIdFn = createServerFn({ method: "GET" })
   .validator((data: { id: string }) => data)
-  .handler(async ({ data }): Promise<Product> => {
-    const product = await fetchProductById(data.id);
-    if (!product) throw new Error("Product not found");
-    return product;
+  .handler(async ({ data }): Promise<Product | null> => {
+    try {
+      const product = await fetchProductById(data.id);
+      return product;
+    } catch (err) {
+      console.error("[getProductByIdFn] Error:", err);
+      return null;
+    }
   });
