@@ -141,6 +141,15 @@ function CartPage() {
                 </div>
               </div>
 
+              {/* Coupon Section */}
+              <div className="bg-white rounded-md border border-border shadow-sm p-4 mb-4">
+                <p className="text-sm font-bold text-foreground mb-3 uppercase tracking-wider">Coupons</p>
+                <div className="flex items-center gap-2">
+                  <input type="text" placeholder="Enter coupon code" className="w-full h-10 border border-input rounded-sm px-3 text-sm focus:border-primary outline-none uppercase" />
+                  <Button variant="outline" className="h-10 text-primary border-primary hover:bg-primary/5 uppercase font-bold text-xs tracking-wider">Apply</Button>
+                </div>
+              </div>
+
               <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white h-12 text-sm font-bold uppercase tracking-wider rounded-sm shadow-md">
                 <Link to="/checkout" className="flex items-center justify-center gap-2">
                   Proceed to Checkout <ArrowRight className="h-4 w-4" />

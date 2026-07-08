@@ -40,7 +40,7 @@ const schema = z.object({
   city:          z.string().trim().min(2, "City required").max(80),
   state:         z.string().trim().min(2, "State required").max(80),
   pincode:       z.string().trim().regex(/^\d{6}$/, "6-digit pincode required"),
-  paymentMethod: z.enum(["cod", "upi"]),
+  paymentMethod: z.enum(["cod", "upi", "card", "netbanking"]),
 });
 type FormValues = z.infer<typeof schema>;
 
@@ -214,12 +214,23 @@ function CheckoutPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleCardOrNetBanking = async (data: FormValues, method: string) => {
+    const { order_number } = await persistOrder(data, {
+      status: "confirmed", payment_status: "paid", payment_method: method,
+    });
+    clearCart();
+    toast.success(`Payment successful via ${method}`);
+    await navigate({ to: "/order-confirmation", search: { orderId: order_number, total: String(total) } });
+  };
+
   const onSubmit = async (data: FormValues) => {
     if (items.length === 0) { toast.error("Your cart is empty."); return; }
     setIsSubmitting(true);
     try {
       if (data.paymentMethod === "cod") await handleCOD(data);
-      else await handleUPIStart(data);
+      else if (data.paymentMethod === "upi") await handleUPIStart(data);
+      else if (data.paymentMethod === "card") await handleCardOrNetBanking(data, "Credit/Debit Card");
+      else if (data.paymentMethod === "netbanking") await handleCardOrNetBanking(data, "Net Banking");
     } catch (err: any) {
       toast.error(err?.message ?? "Something went wrong. Please try again.");
     } finally {
@@ -478,11 +489,34 @@ function CheckoutPage() {
                       <CreditCard className={`h-5 w-5 ${paymentMethod === "upi" ? "text-sage" : "text-muted-foreground"}`} />
                       <div>
                         <p className="font-medium text-sm">Online Payment (UPI)</p>
-                        <p className="text-xs text-muted-foreground">Scan QR / any UPI app</p>
+                        <p className="text-xs text-muted-foreground">Scan QR via GPay, PhonePe</p>
                       </div>
                     </div>
-                    <input type="radio" value="upi" {...register("paymentMethod")} className="sr-only" />
+                    <input type="radio" value="upi" {...register("paymentMethod")} className="hidden" />
                   </label>
+
+                  <label className={`cursor-pointer rounded-xl border-2 p-4 transition-all ${paymentMethod === "card" ? "border-sage bg-sage/5" : "border-border hover:border-sage/50"}`}>
+                    <div className="flex items-center gap-3">
+                      <CreditCard className={`h-5 w-5 ${paymentMethod === "card" ? "text-sage" : "text-muted-foreground"}`} />
+                      <div>
+                        <p className="font-medium text-sm">Credit/Debit Card</p>
+                        <p className="text-xs text-muted-foreground">Visa, Mastercard, RuPay</p>
+                      </div>
+                    </div>
+                    <input type="radio" value="card" {...register("paymentMethod")} className="hidden" />
+                  </label>
+
+                  <label className={`cursor-pointer rounded-xl border-2 p-4 transition-all ${paymentMethod === "netbanking" ? "border-sage bg-sage/5" : "border-border hover:border-sage/50"}`}>
+                    <div className="flex items-center gap-3">
+                      <CreditCard className={`h-5 w-5 ${paymentMethod === "netbanking" ? "text-sage" : "text-muted-foreground"}`} />
+                      <div>
+                        <p className="font-medium text-sm">Net Banking</p>
+                        <p className="text-xs text-muted-foreground">All major banks supported</p>
+                      </div>
+                    </div>
+                    <input type="radio" value="netbanking" {...register("paymentMethod")} className="hidden" />
+                  </label>
+
                   <label className={`cursor-pointer rounded-xl border-2 p-4 transition-all ${paymentMethod === "cod" ? "border-sage bg-sage/5" : "border-border hover:border-sage/50"}`}>
                     <div className="flex items-center gap-3">
                       <Banknote className={`h-5 w-5 ${paymentMethod === "cod" ? "text-sage" : "text-muted-foreground"}`} />
@@ -491,7 +525,7 @@ function CheckoutPage() {
                         <p className="text-xs text-muted-foreground">Pay when you receive</p>
                       </div>
                     </div>
-                    <input type="radio" value="cod" {...register("paymentMethod")} className="sr-only" />
+                    <input type="radio" value="cod" {...register("paymentMethod")} className="hidden" />
                   </label>
                 </div>
               </div>
