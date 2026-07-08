@@ -35,7 +35,7 @@ function ShopPage() {
 
   // Filter valid local images
   const validProducts = useMemo(() => allProducts.filter(p => {
-    const img = p.image || p.image_url || "";
+    const img = p.image_url || p.image || "";
     return img.startsWith("/assets/images/");
   }), [allProducts]);
 

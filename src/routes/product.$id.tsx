@@ -36,7 +36,7 @@ function ProductDetailPage() {
   const [qty, setQty] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   
-  const imageSrc = product.image || product.image_url || "/assets/images/products/placeholder.png";
+  const imageSrc = product.image_url || product.image || "/assets/images/products/placeholder.png";
   const inStock = (product.stock ?? 0) > 0;
   const mrp = product.mrp || (product.price * 1.2);
   const discount = Math.round(((mrp - product.price) / mrp) * 100);

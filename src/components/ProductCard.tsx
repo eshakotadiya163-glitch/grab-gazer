@@ -29,7 +29,7 @@ interface ProductCardProps {
 const PLACEHOLDER = "/assets/images/products/placeholder.png";
 
 function productImage(product: Product) {
-  return product.image || product.image_url || PLACEHOLDER;
+  return product.image_url || product.image || PLACEHOLDER;
 }
 
 function StarRating({ rating }: { rating: number }) {
