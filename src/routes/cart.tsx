@@ -1,16 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Cart — The Woman's Company" },
-      { name: "description", content: "Review your cart and proceed to checkout." },
-      { property: "og:title", content: "Cart — The Woman's Company" },
-      { property: "og:description", content: "Review your cart and proceed to checkout." },
+      { title: "Shopping Bag — The Women Company" },
     ],
   }),
   component: CartPage,
@@ -19,122 +15,148 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   const { items, updateQuantity, removeItem, totalItems, totalPrice } = useCart();
 
-  return (
-    <main className="min-h-screen bg-background">
-      <section className="bg-blush py-16 lg:py-24">
-        <div className="container-tight text-center">
-          <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold text-foreground sm:text-5xl">
-            Your Cart
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            {totalItems > 0 ? `You have ${totalItems} item${totalItems === 1 ? "" : "s"} in your cart.` : "Your cart is empty."}
-          </p>
-        </div>
-      </section>
+  // Mock calculations
+  const totalMrp = items.reduce((acc, item) => acc + ((item.price * 1.2) * item.quantity), 0);
+  const totalDiscount = totalMrp - totalPrice;
+  const shipping = totalPrice >= 500 ? 0 : 50;
+  const grandTotal = totalPrice + shipping;
 
-      <section className="py-16 lg:py-24">
-        <div className="container-tight">
-          {items.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center"
-            >
-              <ShoppingBag className="mx-auto h-16 w-16 text-muted-foreground/50" />
-              <p className="mt-6 text-lg text-muted-foreground">
-                Looks like you haven't added anything yet.
-              </p>
-              <Button asChild className="mt-6 bg-sage text-white hover:bg-sage-deep" size="lg">
-                <Link to="/shop">Continue shopping</Link>
-              </Button>
-            </motion.div>
-          ) : (
-            <div className="grid gap-12 lg:grid-cols-3">
-              <div className="lg:col-span-2 space-y-4">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      width={96}
-                      height={96}
-                      className="h-24 w-24 rounded-xl object-cover"
-                    />
-                    <div className="flex flex-1 flex-col justify-between">
-                      <div>
-                        <h3 className="font-[family-name:var(--font-display)] text-lg font-semibold text-foreground">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">Rs. {item.price}</p>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="grid h-8 w-8 place-items-center rounded-full border border-input transition-colors hover:bg-accent"
-                            aria-label="Decrease quantity"
-                          >
-                            <Minus className="h-4 w-4" />
-                          </button>
-                          <span className="w-6 text-center text-sm font-medium">{item.quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="grid h-8 w-8 place-items-center rounded-full border border-input transition-colors hover:bg-accent"
-                            aria-label="Increase quantity"
-                          >
-                            <Plus className="h-4 w-4" />
-                          </button>
+  return (
+    <main className="min-h-screen bg-muted/20 pb-24">
+      
+      {/* Header */}
+      <div className="bg-white border-b border-border py-6 shadow-sm">
+        <div className="container-tight mx-auto px-4 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+            Shopping Bag {totalItems > 0 && <span className="text-primary">({totalItems} Items)</span>}
+          </h1>
+        </div>
+      </div>
+
+      <div className="container-tight mx-auto px-4 mt-6">
+        {items.length === 0 ? (
+          <div className="bg-white rounded-md p-12 text-center shadow-sm border border-border mt-8">
+            <ShoppingBag className="mx-auto h-20 w-20 text-muted-foreground/30 mb-6" />
+            <h2 className="text-xl font-bold text-foreground mb-2">Your Shopping Bag is Empty</h2>
+            <p className="text-muted-foreground mb-8">This feels too light! Go on, add all your favourites.</p>
+            <Button asChild className="bg-primary text-white hover:bg-primary/90 font-bold uppercase tracking-wide rounded-sm px-8">
+              <Link to="/shop">Start Shopping</Link>
+            </Button>
+          </div>
+        ) : (
+          <div className="flex flex-col lg:flex-row gap-6 items-start">
+            
+            {/* Left: Cart Items */}
+            <div className="w-full lg:w-8/12 flex flex-col gap-4">
+              <div className="bg-white border border-border rounded-md shadow-sm overflow-hidden">
+                <div className="p-4 bg-muted/20 font-bold border-b border-border text-sm text-foreground flex justify-between items-center">
+                  <span>Bag Items</span>
+                  <span className="text-muted-foreground font-normal">{totalItems} items</span>
+                </div>
+                
+                <div className="divide-y divide-border">
+                  {items.map((item) => {
+                    const mrp = item.price * 1.2;
+                    const discountPercent = Math.round(((mrp - item.price) / mrp) * 100);
+                    return (
+                      <div key={item.id} className="p-4 flex gap-4 bg-white relative">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="h-24 w-24 object-contain rounded-sm border border-border p-1"
+                        />
+                        <div className="flex flex-col flex-1">
+                          <h3 className="text-sm font-bold text-foreground pr-8">{item.name}</h3>
+                          
+                          <div className="mt-2 flex items-center gap-2">
+                            <span className="text-sm font-bold text-foreground">₹{item.price}</span>
+                            <span className="text-xs text-muted-foreground line-through">₹{mrp}</span>
+                            <span className="text-xs font-bold text-green-600">{discountPercent}% Off</span>
+                          </div>
+                          
+                          <div className="mt-auto pt-4 flex items-center justify-between">
+                            <div className="flex items-center gap-3 border border-border rounded-sm h-8 w-24">
+                              <button
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                className="flex-1 flex justify-center items-center text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                <Minus className="h-3 w-3" />
+                              </button>
+                              <span className="text-sm font-bold text-foreground">{item.quantity}</span>
+                              <button
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                className="flex-1 flex justify-center items-center text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                <Plus className="h-3 w-3" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
+                        
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="text-muted-foreground transition-colors hover:text-destructive"
+                          className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors"
                           aria-label="Remove item"
                         >
-                          <Trash2 className="h-5 w-5" />
+                          <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="h-fit rounded-2xl border border-border bg-card p-6 shadow-sm">
-                <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold text-foreground">
-                  Order Summary
-                </h2>
-                <div className="mt-4 space-y-2 text-sm">
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span>Subtotal</span>
-                    <span>Rs. {totalPrice}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span>Shipping</span>
-                    <span>Calculated at checkout</span>
-                  </div>
+                    );
+                  })}
                 </div>
-                <div className="mt-4 border-t border-border pt-4">
-                  <div className="flex items-center justify-between text-lg font-semibold text-foreground">
-                    <span>Total</span>
-                    <span>Rs. {totalPrice}</span>
-                  </div>
-                </div>
-                <Button asChild className="mt-6 w-full gap-2 bg-sage text-white hover:bg-sage-deep" size="lg">
-                  <Link to="/checkout">
-                    Checkout <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <p className="mt-3 text-center text-xs text-muted-foreground">
-                  Shipping & taxes calculated at checkout.
-                </p>
               </div>
             </div>
-          )}
-        </div>
-      </section>
+
+            {/* Right: Order Summary */}
+            <div className="w-full lg:w-4/12 flex flex-col gap-4">
+              <div className="bg-white border border-border rounded-md shadow-sm">
+                <div className="p-4 bg-muted/20 font-bold border-b border-border text-sm text-foreground">
+                  Price Details
+                </div>
+                <div className="p-4 space-y-3">
+                  <div className="flex justify-between text-sm text-foreground">
+                    <span>Bag MRP ({totalItems} items)</span>
+                    <span>₹{totalMrp.toFixed(0)}</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-foreground">
+                    <span>Bag Discount</span>
+                    <span className="text-green-600">-₹{totalDiscount.toFixed(0)}</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-foreground">
+                    <span>Shipping</span>
+                    {shipping === 0 ? (
+                      <span className="text-green-600 flex items-center gap-1">Free <span className="line-through text-muted-foreground text-xs">₹50</span></span>
+                    ) : (
+                      <span>₹{shipping}</span>
+                    )}
+                  </div>
+                  <hr className="border-border my-2" />
+                  <div className="flex justify-between text-lg font-bold text-foreground">
+                    <span>You Pay</span>
+                    <span>₹{grandTotal}</span>
+                  </div>
+                </div>
+                <div className="p-4 bg-green-50 border-t border-border flex items-center justify-center gap-2 text-green-700 text-sm font-bold rounded-b-md">
+                  <Check className="h-4 w-4" /> You will save ₹{totalDiscount.toFixed(0)} on this order
+                </div>
+              </div>
+
+              <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white h-12 text-sm font-bold uppercase tracking-wider rounded-sm shadow-md">
+                <Link to="/checkout" className="flex items-center justify-center gap-2">
+                  Proceed to Checkout <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              
+              {/* Trust markers */}
+              <div className="flex items-center justify-center gap-4 text-xs font-bold text-muted-foreground mt-2">
+                <div className="flex items-center gap-1"><Check className="h-3 w-3 text-primary" /> 100% Genuine</div>
+                <div className="flex items-center gap-1"><Check className="h-3 w-3 text-primary" /> Secure Payment</div>
+              </div>
+            </div>
+            
+          </div>
+        )}
+      </div>
     </main>
   );
 }

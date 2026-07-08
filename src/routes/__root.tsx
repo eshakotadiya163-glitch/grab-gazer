@@ -127,7 +127,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap",
       },
     ],
   }),
@@ -151,6 +151,38 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+import { Home, Grid, Tag, ShoppingBag, User } from "lucide-react";
+
+function MobileBottomNav() {
+  const router = useRouter();
+  const activePath = router.state.location.pathname;
+
+  return (
+    <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-border flex items-center justify-around lg:hidden pb-safe">
+      <Link to="/" className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activePath === "/" ? "text-primary" : "text-muted-foreground"}`}>
+        <Home className="h-5 w-5" />
+        <span className="text-[10px] font-medium">Home</span>
+      </Link>
+      <Link to="/shop" className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activePath === "/shop" ? "text-primary" : "text-muted-foreground"}`}>
+        <Grid className="h-5 w-5" />
+        <span className="text-[10px] font-medium">Categories</span>
+      </Link>
+      <Link to="/shop" search={{ sort: "new" }} className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activePath === "/offers" ? "text-primary" : "text-muted-foreground"}`}>
+        <Tag className="h-5 w-5" />
+        <span className="text-[10px] font-medium">Offers</span>
+      </Link>
+      <Link to="/cart" className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative ${activePath === "/cart" ? "text-primary" : "text-muted-foreground"}`}>
+        <ShoppingBag className="h-5 w-5" />
+        <span className="text-[10px] font-medium">Bag</span>
+      </Link>
+      <Link to="/profile" className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activePath === "/profile" ? "text-primary" : "text-muted-foreground"}`}>
+        <User className="h-5 w-5" />
+        <span className="text-[10px] font-medium">Profile</span>
+      </Link>
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -159,11 +191,13 @@ function RootComponent() {
       <AuthProvider>
         <WishlistProvider>
           <CartProvider>
-            <AnnouncementBar />
+            {/* Removed AnnouncementBar since it's now inside Header */}
             <Header />
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
+            <div className="pb-16 lg:pb-0"> {/* Padding for mobile bottom nav */}
+              <Outlet />
+            </div>
             <Footer />
+            <MobileBottomNav />
             <Toaster richColors position="top-center" />
           </CartProvider>
         </WishlistProvider>

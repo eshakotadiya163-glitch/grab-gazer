@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { ShoppingCart, Leaf, Star } from "lucide-react";
+import { Star, Heart, ShoppingBag } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
 
 export interface Product {
@@ -29,41 +28,12 @@ interface ProductCardProps {
 
 const PLACEHOLDER = "/assets/images/products/placeholder.png";
 
-const BRAND_STYLES: Record<string, { pill: string; btn: string; border: string }> = {
-  Mamaearth: {
-    pill:   "bg-emerald-500 text-white",
-    btn:    "bg-emerald-500 hover:bg-emerald-600 text-white",
-    border: "border-emerald-200 hover:border-emerald-400 hover:shadow-emerald-100/60",
-  },
-  Kimirica: {
-    pill:   "bg-violet-500 text-white",
-    btn:    "bg-violet-500 hover:bg-violet-600 text-white",
-    border: "border-border hover:border-violet-300",
-  },
-  "The Woman Company": {
-    pill:   "bg-rose-400 text-white",
-    btn:    "bg-rose-400 hover:bg-rose-500 text-white",
-    border: "border-border hover:border-rose-300",
-  },
-  "The Body Care": {
-    pill:   "bg-sky-500 text-white",
-    btn:    "bg-sky-500 hover:bg-sky-600 text-white",
-    border: "border-sky-100 hover:border-sky-300 hover:shadow-sky-100/60",
-  },
-};
-
-const DEFAULT_STYLE = {
-  pill:   "bg-slate-500 text-white",
-  btn:    "bg-slate-500 hover:bg-slate-600 text-white",
-  border: "border-border hover:border-slate-300",
-};
-
 function productImage(product: Product) {
   return product.image || product.image_url || PLACEHOLDER;
 }
 
 function StarRating({ rating }: { rating: number }) {
-  const full  = Math.floor(rating);
+  const full = Math.floor(rating);
   const hasHalf = rating % 1 >= 0.5;
   return (
     <span className="flex items-center gap-0.5">
@@ -71,107 +41,110 @@ function StarRating({ rating }: { rating: number }) {
         <Star
           key={i}
           className={`h-3 w-3 ${
-            i < full ? "fill-amber-400 text-amber-400"
-            : i === full && hasHalf ? "fill-amber-400/50 text-amber-400"
-            : "fill-muted text-muted"
+            i < full ? "fill-yellow-400 text-yellow-400"
+            : i === full && hasHalf ? "fill-yellow-400/50 text-yellow-400"
+            : "fill-border text-border"
           }`}
         />
       ))}
-      <span className="ml-1 text-[11px] text-muted-foreground">{rating.toFixed(1)}</span>
+      <span className="ml-1 text-[11px] text-muted-foreground font-medium">({Math.floor(Math.random() * 500) + 50})</span>
     </span>
   );
 }
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
-  const isMamaearth = product.brand === "Mamaearth";
-  const style = (product.brand ? BRAND_STYLES[product.brand] : null) ?? DEFAULT_STYLE;
   const imageSrc = productImage(product);
   const inStock = (product.stock ?? 0) > 0;
+  
+  // Calculate discount percentage
+  const mrp = product.mrp || (product.price * 1.2); // Fallback to 20% off if no MRP
+  const discount = Math.round(((mrp - product.price) / mrp) * 100);
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.38, delay: Math.min(index, 10) * 0.04, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`group flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:shadow-lg ${style.border}`}
+      transition={{ duration: 0.4, delay: Math.min(index, 10) * 0.05 }}
+      className="group relative flex flex-col bg-white border border-border/60 hover:shadow-lg transition-shadow duration-300 rounded-md overflow-hidden"
     >
-      <Link to="/product/$id" params={{ id: product.id }} className="relative block aspect-square overflow-hidden bg-[#FFF0F0]">
-        {isMamaearth ? (
-          <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-emerald-500 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">
-            <Leaf className="h-3 w-3" />
-            Toxin-Free ✓
-          </span>
-        ) : product.tag && (
-          <span className="absolute left-3 top-3 z-10 rounded-full bg-sage px-3 py-1 text-xs font-medium text-white shadow-sm">
+      <div className="relative aspect-square p-4 bg-white overflow-hidden">
+        {/* Wishlist Icon */}
+        <button 
+          className="absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm border border-border/50 text-muted-foreground hover:text-primary transition-colors"
+          onClick={(e) => {
+            e.preventDefault();
+            toast.success("Added to wishlist");
+          }}
+        >
+          <Heart className="h-4 w-4" />
+        </button>
+
+        <Link to="/product/$id" params={{ id: product.id }} className="block h-full w-full">
+          <img
+            src={imageSrc}
+            alt={product.name}
+            loading="lazy"
+            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+          />
+        </Link>
+        
+        {/* Tag (Bestseller, New, etc) */}
+        {product.tag && (
+          <span className="absolute left-0 bottom-0 z-10 bg-[#FFD2D2] text-[#D82E2E] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
             {product.tag}
           </span>
         )}
-        <img
-          src={imageSrc}
-          alt={product.name}
-          loading="lazy"
-          width={600}
-          height={600}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/5" />
-      </Link>
+      </div>
 
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col p-3 text-center">
         {product.brand && (
-          <span className={`inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${style.pill}`}>
+          <p className="text-[11px] font-semibold text-muted-foreground mb-1 uppercase tracking-wide">
             {product.brand}
-          </span>
+          </p>
         )}
-
-        <Link to="/product/$id" params={{ id: product.id }} className="mt-2 block">
-          <h3 className="font-[family-name:var(--font-display)] text-[15px] font-semibold leading-snug text-foreground transition-colors group-hover:text-sage-deep line-clamp-2">
+        
+        <Link to="/product/$id" params={{ id: product.id }} className="mb-2">
+          <h3 className="text-[13px] font-medium leading-tight text-foreground line-clamp-2 hover:text-primary transition-colors">
             {product.name}
           </h3>
         </Link>
-
-        {product.category && (
-          <p className="mt-1 text-xs text-muted-foreground">{product.category}</p>
-        )}
-
-        {product.variant && (
-          <p className="mt-0.5 text-xs italic text-muted-foreground">{product.variant}</p>
-        )}
-
-        {product.rating && (
-          <div className="mt-1.5">
-            <StarRating rating={product.rating} />
-          </div>
-        )}
-
-        <div className="mt-auto pt-3 flex items-center justify-between gap-2">
-          <div>
-            <p className="text-base font-bold text-foreground">{product.priceLabel}</p>
-            <p className={`text-[11px] ${inStock ? "text-emerald-600" : "text-destructive"}`}>
-              {inStock ? `${product.stock} in stock` : "Out of stock"}
-            </p>
-          </div>
-          <Button
-            size="sm"
-            disabled={!inStock}
-            className={`gap-1.5 transition-all ${style.btn}`}
-            onClick={(e) => {
-              e.preventDefault();
-              addItem({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                image: imageSrc,
-              });
-              toast.success(`${product.name} added to cart`);
-            }}
-          >
-            <ShoppingCart className="h-3.5 w-3.5" />
-            Add
-          </Button>
+        
+        <div className="flex justify-center mb-2">
+          <StarRating rating={product.rating || (4 + Math.random())} />
         </div>
+
+        <div className="mt-auto pt-2 flex items-center justify-center gap-1.5 flex-wrap">
+          <span className="text-sm font-bold text-foreground">₹{product.price}</span>
+          {mrp > product.price && (
+            <>
+              <span className="text-xs text-muted-foreground line-through">₹{mrp}</span>
+              <span className="text-xs font-bold text-green-600">{discount}% Off</span>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Add to Bag Button */}
+      <div className="p-3 pt-0 mt-auto border-t border-border/30">
+        <Button 
+          disabled={!inStock}
+          className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-9 text-xs font-bold tracking-wide uppercase transition-colors"
+          onClick={(e) => {
+            e.preventDefault();
+            if (!inStock) return;
+            addItem({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              image: imageSrc,
+            });
+            toast.success("Added to bag", { icon: <ShoppingBag className="h-4 w-4" /> });
+          }}
+        >
+          {inStock ? "Add to Bag" : "Out of Stock"}
+        </Button>
       </div>
     </motion.article>
   );

@@ -1,0 +1,797 @@
+[
+  {
+    "id": "cbf30dd0-7b43-462e-8799-8a4003700225",
+    "name": "The Gentleman Niacinamide Body Cream",
+    "url": "https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=2"
+  },
+  {
+    "id": "bc4e873b-df7d-4a2b-aec7-2799ab6f27d8",
+    "name": "The Gulistan Body Cream 100gm",
+    "url": "https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=4"
+  },
+  {
+    "id": "8c60f72b-9ea7-4ecd-819a-32c9f8417ad0",
+    "name": "Around The World Moisturizing Body Wash",
+    "url": "https://images.pexels.com/photos/4202325/pexels-photo-4202325.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=2"
+  },
+  {
+    "id": "8a461012-db78-43a6-a1c8-16c573d252ad",
+    "name": "Around The World Clarifying Body Wash",
+    "url": "https://images.pexels.com/photos/4202325/pexels-photo-4202325.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=3"
+  },
+  {
+    "id": "5272ab90-fa83-400a-9d9b-fe0e530b41e4",
+    "name": "Around The World Renewing Body Wash",
+    "url": "https://images.pexels.com/photos/4202325/pexels-photo-4202325.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=4"
+  },
+  {
+    "id": "85995584-5886-4d7b-99ad-dd365e65cb50",
+    "name": "Around The World Body Mist",
+    "url": "https://images.pexels.com/photos/3069635/pexels-photo-3069635.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=7"
+  },
+  {
+    "id": "21b076e9-a0e5-4b79-9e5a-b8a2e4c21952",
+    "name": "Around The World Body Mist",
+    "url": "https://images.pexels.com/photos/3069635/pexels-photo-3069635.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=8"
+  },
+  {
+    "id": "8444b228-d555-4854-82b0-f13646696b74",
+    "name": "Honey Kesar Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_11_3f88b07c-ce7f-42bd-a92d-1d6f894f235a.jpg?v=1749645540"
+  },
+  {
+    "id": "825bb47e-a692-4a61-8695-b2ce730717f2",
+    "name": "Midnight Masquerade Bath & Body Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Bath_BodyDuoGiftSet-MidnightMasquerade-Neroli_Thyme-Listing-Images-01_301aabfc-d6ef-4172-bd91-fca9cb0b85ea.jpg?v=1769496500"
+  },
+  {
+    "id": "949894a3-188b-4643-b6fd-f0340a63ee3b",
+    "name": "Love Story Body Wash & Lotion Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Love_Story-White-Background-1x1-Listing-Images-11_7ec25e4c-b618-4849-b281-26b63baf4cb3.jpg?v=1753351188"
+  },
+  {
+    "id": "ed070efe-2fb7-4b64-b1ac-3c24dc51a460",
+    "name": "Herbalist Body Care Duo",
+    "url": "https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=6"
+  },
+  {
+    "id": "43cc6528-e83e-45dc-81c2-b4b0d862c34b",
+    "name": "Indian Apothecary Body Care Duo",
+    "url": "https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=8"
+  },
+  {
+    "id": "cd469bdc-a540-4613-bf01-cf32f6ce60aa",
+    "name": "Skin Illuminate Face Cream",
+    "url": "https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=4"
+  },
+  {
+    "id": "ce7445ce-638d-4577-9359-d7362ad60e11",
+    "name": "Under Eye Cream",
+    "url": "https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=6"
+  },
+  {
+    "id": "35907457-49d2-4a4b-b7ca-034c437f3bb3",
+    "name": "Earth Shower Gel & Body Lotion Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Earth-White-Background-1x1-Listing-Images-03.jpg?v=1755002430"
+  },
+  {
+    "id": "9b23c7fe-c0ea-4092-8f10-7406578f2339",
+    "name": "Five Elements Body Care Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Five-Elements-White-Background-1x1-Listing-Images-03_1.jpg_1.jpg?v=1772522212"
+  },
+  {
+    "id": "db9a64b3-d819-4694-90e3-c42b37cc1250",
+    "name": "The Gulistan Shower Gel & Lotion Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/The-Gulistan-White-Background-1x1-Listing-Images-09_9aa9b24e-f66b-456d-a4b2-109f88932c04.jpg?v=1754290424"
+  },
+  {
+    "id": "be865172-4fb3-48e5-917c-d7817e207203",
+    "name": "The French Note Body Care Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/The-French-Note-White-Background-1x1-Listing-Images-09.jpg?v=1754380876"
+  },
+  {
+    "id": "68bf8a24-a0ac-4b45-b542-7844241badfe",
+    "name": "The Gentleman Body Wash & Lotion Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/The_Gentleman-White-Background-1x1-Listing-Images-07_3c52ed3b-3ab3-4038-bfaa-4f48852b8d54.jpg?v=1753099807"
+  },
+  {
+    "id": "840f367b-a4b3-4304-9d29-80b9918eec1c",
+    "name": "Around The World Body Mist Gift Set",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/ATW_PERFUME_BODY_MIST_GIFT_SET-Listing-Images-New-01.jpg?v=1765860285"
+  },
+  {
+    "id": "7a12fb1f-8646-4185-ac85-dd7af68e30fa",
+    "name": "Rice Oil-Free Face Moisturizer",
+    "url": "https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=7"
+  },
+  {
+    "id": "b53e1fb8-b014-4362-809e-92f6334b4fd3",
+    "name": "Aloe Vera Sunscreen SPF 55",
+    "url": "https://images.pexels.com/photos/4465831/pexels-photo-4465831.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=2"
+  },
+  {
+    "id": "9138a9ab-0b80-45b9-9587-cc91907c889a",
+    "name": "Ubtan Face Mask",
+    "url": "https://images.pexels.com/photos/3997373/pexels-photo-3997373.jpeg?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "13454a63-acc1-451d-b82f-9d7305ca27ec",
+    "name": "C3 Face Mask",
+    "url": "https://images.pexels.com/photos/3997373/pexels-photo-3997373.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=2"
+  },
+  {
+    "id": "e3fc9161-6224-4cfd-994c-19adc6f8cd8f",
+    "name": "Vitamin C Body Lotion",
+    "url": "https://images.pexels.com/photos/6621462/pexels-photo-6621462.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=12"
+  },
+  {
+    "id": "e5d90f4b-2225-4751-9c9c-f9fa94e8d819",
+    "name": "Coco Body Butter",
+    "url": "https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=5"
+  },
+  {
+    "id": "04333bfc-aea3-472d-88c3-6f19b6cc4109",
+    "name": "Argan Hair Mask",
+    "url": "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=3"
+  },
+  {
+    "id": "5aad1445-ef31-4e9c-9e60-ebbb779cb44f",
+    "name": "Lip Crayon Pink Burst",
+    "url": "https://images.pexels.com/photos/2697787/pexels-photo-2697787.jpeg?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "c144ac70-262a-4390-8acd-348682aa6a3a",
+    "name": "Strawberry Lip Balm",
+    "url": "https://images.pexels.com/photos/2697787/pexels-photo-2697787.jpeg?w=400&h=400&fit=crop&auto=compress&cs=tinysrgb&v=2"
+  },
+  {
+    "id": "bf4df67a-5ef8-407b-b3d6-37188268972f",
+    "name": "Lavender Body Spa Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_d9836923-e628-4e82-96bb-2ad54b021252.jpg?v=1749648101"
+  },
+  {
+    "id": "41bb136b-6e30-4894-8f5a-e93a8dc75c63",
+    "name": "Sinful Chocolate Body Spa Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/3_86e52172-46e4-4bea-a259-3caa7e0957b4.jpg?v=1749648126"
+  },
+  {
+    "id": "df11ac38-05fb-4e5a-a29c-0d4f6fa38e23",
+    "name": "Green Tea & Lemon Grass Body Spa Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_2bfb1f71-040b-4a08-acde-09853b799d01.jpg?v=1749648069"
+  },
+  {
+    "id": "9917fb2d-0b81-4233-9c22-991f566540af",
+    "name": "Fruit Bleach Cream 250g",
+    "url": "https://thebodycare.co.in/cdn/shop/files/02_45.jpg?v=1750747954"
+  },
+  {
+    "id": "0706bf58-77f1-425f-b229-1bce6e51ab90",
+    "name": "Herbal Bleach Cream 250g",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_3_1.jpg?v=1750748016"
+  },
+  {
+    "id": "658e3b60-c7e8-4e52-b4e6-e5a42f889532",
+    "name": "Gold Bleach Cream 250g",
+    "url": "https://thebodycare.co.in/cdn/shop/files/02_47.jpg?v=1750747991"
+  },
+  {
+    "id": "c2db6f35-80be-4e7f-ba25-b09c2277e9ab",
+    "name": "Diamond Bleach Cream 250g",
+    "url": "https://thebodycare.co.in/cdn/shop/files/02_44.jpg?v=1750747937"
+  },
+  {
+    "id": "c037363c-bc40-4e94-a1d2-8d5d55a052d9",
+    "name": "Gentle Bleach Cream 500g",
+    "url": "https://thebodycare.co.in/cdn/shop/files/02_46.jpg?v=1750747975"
+  },
+  {
+    "id": "f6cc284b-7cfc-4870-ac7c-b7d4468d21be",
+    "name": "Gold Facial Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/4_d181bebc-d51a-44fd-a6a6-802a76a00984.jpg?v=1749646405"
+  },
+  {
+    "id": "73a3b296-5ed4-4330-bb5e-3301217237f2",
+    "name": "Fruit Facial Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/3_5251bbe2-9fd9-4760-9fcb-5e4c456f2429.jpg?v=1749646365"
+  },
+  {
+    "id": "93c91892-5eb4-42cd-ab9a-82e30952daac",
+    "name": "Vitamin C Facial Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/5_07f84670-4ff3-4401-afce-f6df564a6c10.jpg?v=1751612792"
+  },
+  {
+    "id": "d94defce-b6ec-4196-a406-c60cfece75b1",
+    "name": "Bright Pro Facial Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_e172fbeb-ef27-49f8-9e53-97c22a3073ea.jpg?v=1749646321"
+  },
+  {
+    "id": "c2c1da27-8c1c-453e-baa1-59dc908d2bb8",
+    "name": "D-tan Facial Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/dtan_fcail_kit.jpg?v=1755778747"
+  },
+  {
+    "id": "85fe1404-e3a1-433b-9a66-f245d54a1bf1",
+    "name": "Lemon Clean Up Kit",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_85fe3069-1075-4b9a-ac06-8e13dd7e7a9f.jpg?v=1749646284"
+  },
+  {
+    "id": "84b17881-594c-4082-9581-5a47d4e7869b",
+    "name": "Mix Fruit Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_12_7e69d8f5-9664-4f5f-8811-7012647a908c.jpg?v=1749645638"
+  },
+  {
+    "id": "73f7d887-3841-4424-9408-ad965fc27543",
+    "name": "Aloe Neem Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_8_4a32756b-2511-4d96-9c36-c59cc6a05a42.jpg?v=1750767897"
+  },
+  {
+    "id": "853c0af7-29aa-481b-8d55-c6502eb9230a",
+    "name": "Vita Complex Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/01_100.jpg?v=1750767707"
+  },
+  {
+    "id": "cc920b96-e545-46ee-9d73-a63d57cad755",
+    "name": "Haldi Chandan Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_10_7692c388-72d6-4693-a6cc-2e6067067620.jpg?v=1749645429"
+  },
+  {
+    "id": "b3f3c8aa-bfb6-474b-9180-7414ebc72a65",
+    "name": "Charcoal Kajal",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-makeup-0-35-gm-pack-of-1-mamaearth-blocked-charcoal-black-long-stay-kajal-0-35g-28452954800175.jpg?v=1773036926"
+  },
+  {
+    "id": "104f0934-226c-4eb3-9bdd-95dcb429a660",
+    "name": "Coco Butter Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_9_43bbefea-5715-4ae2-95bb-bc4152e506cf.jpg?v=1749645353"
+  },
+  {
+    "id": "037acd5c-5e61-4783-8ce6-ce9e208dab88",
+    "name": "Almond Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_6.jpg?v=1749645168"
+  },
+  {
+    "id": "21159c16-abb5-4a5e-8531-09c1b0877887",
+    "name": "All Purpose Cream",
+    "url": "https://thebodycare.co.in/cdn/shop/files/WhatsAppImage2025-06-25at17.06.21.jpg?v=1750851449"
+  },
+  {
+    "id": "db746896-e1ec-4d71-8f3f-8b6825ba6abb",
+    "name": "Mix Fruit Scrub",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_3eedc076-98b6-4ae2-9cdf-44086a721c9d.jpg?v=1749647504"
+  },
+  {
+    "id": "f858c991-b6c7-4aa4-8475-3f187d8303e3",
+    "name": "Aloe Neem Scrub",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_bb288d0c-85be-4c76-b83c-2c30e6afc009.jpg?v=1749647346"
+  },
+  {
+    "id": "f2c287ed-7899-47bd-a682-b796cff4507f",
+    "name": "Vita Complex Scrub",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_e24bc532-2c9f-41ab-a2e9-c07d429b95cc.jpg?v=1749647394"
+  },
+  {
+    "id": "4a20a898-5b3b-4e16-bbad-7768175d1093",
+    "name": "Haldi Chandan Scrub",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_1a790630-fea4-43f9-8ad9-75d6b236ae06.jpg?v=1749647471"
+  },
+  {
+    "id": "6dc9d069-5a06-4bb6-a8b9-67482da121e8",
+    "name": "Apricot Scrub",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_471a62f0-067a-435d-b25a-5c32fed38754.jpg?v=1749647438"
+  },
+  {
+    "id": "5dcabe42-b748-42ad-809c-4470182107ab",
+    "name": "Mix Fruit Face Mask",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_f7e1b661-2ccc-4b30-a477-321a7dea5a8a.jpg?v=1749647191"
+  },
+  {
+    "id": "a02e67ea-3b2f-42b6-a654-634c8e0444b0",
+    "name": "Aloe Neem Face Mask",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_dc4bfb9b-5c89-44b4-9f95-9867dffa618d.jpg?v=1749647092"
+  },
+  {
+    "id": "1ea2313f-8c02-4b3c-99a4-6a2358bc9308",
+    "name": "Vita Complex Face Mask",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_2aa619ec-3cbf-4da4-ade1-c58d96775c65.jpg?v=1749647298"
+  },
+  {
+    "id": "c21dae0b-980e-4a5a-8b2f-bb3b6d070ca5",
+    "name": "Haldi Chandan Face Mask",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_fb1797c9-17c5-41d1-8b7c-bf6db6d7f6e6.jpg?v=1749647150"
+  },
+  {
+    "id": "e8a6050c-60c9-4e1d-b040-f0182ec05853",
+    "name": "Pimple Control Face Mask",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_2c291f91-1d64-4e24-9cae-d0101f1baccc.jpg?v=1749724647"
+  },
+  {
+    "id": "af5b9bb0-8f7b-4355-8430-73224a53a70f",
+    "name": "Daily Radiance Body Lotion 24Hr",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_91ae4596-c004-4b36-8adc-729b5fba41c5.jpg?v=1749647001"
+  },
+  {
+    "id": "522d40f2-3486-4282-baaa-5217148dee17",
+    "name": "Deep Nourish Body Lotion 72Hr",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_d9810466-52dc-4ad3-a808-c4d9ff24b427.jpg?v=1749647048"
+  },
+  {
+    "id": "7ed219b8-2ee7-4942-9c36-0a623b898f0c",
+    "name": "Pore Tightening Toner",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_cd8655c0-a134-419a-b1ac-3f18beaf1073.jpg?v=1749647680"
+  },
+  {
+    "id": "2bd0f32f-2d5b-4d2d-8630-ccd7e870c26c",
+    "name": "Citrus Energizing Cleansing Milk",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_4_fa414d72-327a-4350-9804-e10bec45911a.jpg?v=1749645016"
+  },
+  {
+    "id": "3f7d38f7-28c1-4a2d-825f-a20917dc5c93",
+    "name": "Rose Deep Pore Cleansing Milk",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_5_03e63eae-96a9-4c21-aa1b-fb6fe8c6ee44.jpg?v=1749645114"
+  },
+  {
+    "id": "f8af80bc-c0c9-452b-9b0f-4cdfa5665e49",
+    "name": "D-tan Mask",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_15_275e9dc9-f657-466c-b5d0-5971489e29c4.jpg?v=1749646098"
+  },
+  {
+    "id": "cf6bd965-03e9-4804-b7ab-7be463740ac1",
+    "name": "Aloe Neem Gel",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_22.jpg?v=1750849317"
+  },
+  {
+    "id": "8fc94998-f829-4ed2-9a04-adce7be6a9e5",
+    "name": "Calming Massage Gel",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_45dfdf50-3622-41ba-b7b5-dc53d33d4eb4.jpg?v=1749646942"
+  },
+  {
+    "id": "62a8fe52-9017-4a4e-83d1-87d63b0678f0",
+    "name": "White Chocolate Creme Wax",
+    "url": "https://thebodycare.co.in/cdn/shop/files/4_4_cfa9deeb-159c-416a-88a5-0c11c401239c.jpg?v=1750147484"
+  },
+  {
+    "id": "40dd5fba-b2cd-450c-bd61-558fdd2d8d82",
+    "name": "Dark Chocolate Creme Wax",
+    "url": "https://thebodycare.co.in/cdn/shop/files/5_0c5fddb1-e814-4280-98d9-626ec5aa42c5.jpg?v=1749648792"
+  },
+  {
+    "id": "d28f8a7a-f0e6-4d61-b5d6-fa40eba5c945",
+    "name": "Aloe Vera Creme Wax",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_02eb4483-aa9f-4cfc-9312-cabb91918eb0.jpg?v=1749648743"
+  },
+  {
+    "id": "e03e78dc-d54b-4e34-bec4-e2c6fa311685",
+    "name": "Lemon Creme Wax",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/04-_2.jpg?v=1749710919"
+  },
+  {
+    "id": "49614674-b4ab-43cb-b85b-1bf0d2b840e6",
+    "name": "Gold Shine Wax",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/1_28103ac2-59c5-4b3d-a72f-eb38fb5e0f2a.jpg?v=1749648723"
+  },
+  {
+    "id": "607a0886-b1f3-4d23-8b5f-99afb88924c9",
+    "name": "Pearl Shine Creme Wax",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/01_97.jpg?v=1750766491"
+  },
+  {
+    "id": "fa49385b-9836-4cff-8afa-e878f160efb0",
+    "name": "Chocolate Sugar Wax",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/2_7a73a5da-1d4b-4029-8ed7-b16356af2e13.jpg?v=1749649242"
+  },
+  {
+    "id": "4ad53aba-d355-43a3-8a66-598f214d5905",
+    "name": "Lemon Honey Hot Sugar Wax",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/1_3880eae6-e9da-4acb-8031-eab0f7f6a096.jpg?v=1749649207"
+  },
+  {
+    "id": "3eebd1a3-df15-4ef8-a367-077a8b2522c0",
+    "name": "Pre Waxing Gel",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/2_19.jpg?v=1750318329"
+  },
+  {
+    "id": "aed4e3b4-a644-4e6a-8139-9ee284ddac4a",
+    "name": "Post Waxing Oil",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/1_22.jpg?v=1750337052"
+  },
+  {
+    "id": "63c66844-c13f-4560-ad67-74d2c8324e7e",
+    "name": "Post Waxing Cream",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/04_8_b5962603-6795-4854-abe1-7e98a5710e94.jpg?v=1752062387"
+  },
+  {
+    "id": "0bbc2f1c-b347-4494-bdfd-0da67c5dcd79",
+    "name": "Blueberry Bath Salt",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_b1b656b2-71f1-473e-a8e7-cf90888effb6.jpg?v=1749647733"
+  },
+  {
+    "id": "9ebcf7c0-2323-45a1-babc-5e8475d41541",
+    "name": "Lavender Bath Salt",
+    "url": "https://thebodycare.co.in/cdn/shop/files/3_c1d9f22d-5487-4b7d-986b-75e1c01ed9a9.jpg?v=1749647840"
+  },
+  {
+    "id": "59ebe1d7-6892-4d9c-8d61-da0bdb4b6c88",
+    "name": "Lemon Bath Salt",
+    "url": "https://thebodycare.co.in/cdn/shop/files/4_9c0d78f7-0d04-4f31-843d-339a86b7e641.jpg?v=1749710937"
+  },
+  {
+    "id": "0fa87263-0c03-42cc-b468-1357da3b3d6b",
+    "name": "Lemon Grass Bath Salt",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_a7dce908-5d11-4ca0-8de7-21d4d54bf2a5.jpg?v=1749647772"
+  },
+  {
+    "id": "38435b64-fd15-4895-ae19-d5a2ca331746",
+    "name": "Sugar Marmalade Body Scrub Blueberry",
+    "url": "https://thebodycare.co.in/cdn/shop/files/2_ccabe344-12fb-46dd-8d8b-fa70605e989a.jpg?v=1749648393"
+  },
+  {
+    "id": "2532dec8-be93-4bda-8401-8a5a104506a5",
+    "name": "Sugar Marmalade Body Scrub Strawberry",
+    "url": "https://thebodycare.co.in/cdn/shop/files/4_8f0ba5ec-b527-4ede-b8f4-34b934e79dfc.jpg?v=1750746747"
+  },
+  {
+    "id": "36fdd75b-0ba3-4d36-beb0-9cd6da85ed4f",
+    "name": "Sugar Marmalade Body Scrub Kiwi",
+    "url": "https://thebodycare.co.in/cdn/shop/files/3_61e7d58b-9a89-49f0-a3b3-e6adec7b0f07.jpg?v=1749648391"
+  },
+  {
+    "id": "c857980f-c927-4ff2-84cd-e693664bffdc",
+    "name": "Sugar Marmalade Body Scrub Orange",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_1c98bb6e-149a-4ec5-ac7e-4dce7e2eb2f2.jpg?v=1749648396"
+  },
+  {
+    "id": "3d3f3df9-73e7-4a30-bf15-5880cef8ee2a",
+    "name": "Amla Shikakai Shampoo",
+    "url": "https://thebodycare.co.in/cdn/shop/files/1_16_a6a78083-5b73-4551-a34a-ff90abd1549c.jpg?v=1749710128"
+  },
+  {
+    "id": "4327e2f4-cf31-4df3-b79e-2443a9788113",
+    "name": "Deep Smoothing Coconut Shampoo",
+    "url": "https://thebodycare.co.in/cdn/shop/files/3_520170a0-9128-4591-82e4-a39f2d028197.jpg?v=1750338293"
+  },
+  {
+    "id": "36ed9ac8-929d-4c87-bec3-f0dd4c3b7cd9",
+    "name": "Keratin Hair Repair Shampoo",
+    "url": "https://thebodycare.co.in/cdn/shop/files/5_3_293a118c-be9b-4dc9-97fe-4c3c8854b5cd.jpg?v=1750660769"
+  },
+  {
+    "id": "e1a50a46-c413-4af7-b5bf-4d43ba5c22e1",
+    "name": "Volumizing Shampoo",
+    "url": "https://thebodycare.co.in/cdn/shop/files/3_4_c2aa0ca7-7a28-4148-b84c-7d8866141a0e.jpg?v=1750661306"
+  },
+  {
+    "id": "ae82e8b5-465b-4ca6-84dd-02e228f264a6",
+    "name": "Deep Smoothing Coconut Conditioner",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/2_20.jpg?v=1751626470"
+  },
+  {
+    "id": "22e32d2d-7ec2-4815-a199-3d5712a00892",
+    "name": "Keratin Hair Repair Conditioner",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/4_6_45c27fd6-8762-4a8c-a633-4c2cd0bbeaee.jpg?v=1751626213"
+  },
+  {
+    "id": "bdde3bd1-6f53-4227-8c99-fb5a14804d8d",
+    "name": "Volumizing Conditioner",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/6_4_a43bfe78-ba4c-44b8-86b0-52f1ed4ec9c0.jpg?v=1751626188"
+  },
+  {
+    "id": "3faba4e3-0c5d-495b-b2c8-69aaa03f33f1",
+    "name": "Coconut Deep Smoothing Hair Mask",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/7_4.jpg?v=1750673724"
+  },
+  {
+    "id": "4b0dd942-be26-4854-a344-e2e5f3346c2e",
+    "name": "Keratin Hair Repair Hair Mask",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/2_21.jpg?v=1750673857"
+  },
+  {
+    "id": "a5dea260-67a2-4d77-8583-c00257600dfa",
+    "name": "Deep Smoothing Coconut Hair Serum",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/6_5_19f7479f-d1eb-48de-8a6b-4a7548e368cc.jpg?v=1750672700"
+  },
+  {
+    "id": "7d477c16-8c87-4500-85b9-de1160273f15",
+    "name": "Keratin Hair Repair Serum",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/7_2.jpg?v=1750672851"
+  },
+  {
+    "id": "2d9f8241-c1a7-4c11-b064-b95284b7fb57",
+    "name": "Volumizing Hair Serum",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/7_3.jpg?v=1750672923"
+  },
+  {
+    "id": "3546c7b2-62d9-4828-b497-d71313e01524",
+    "name": "Lemon Bright Manicure Pedicure Kit",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/3_daba4ca6-cb23-45d6-badf-7f8c25ca6e66.jpg?v=1749648295"
+  },
+  {
+    "id": "08a410bc-5a2d-42bc-bf4a-41ff2a5fb551",
+    "name": "Marine Fresh Manicure Pedicure Kit",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/1_a3189218-bdd1-4342-8433-1865fabe416e.jpg?v=1749648255"
+  },
+  {
+    "id": "cdf571c6-5f75-4690-bf0a-4fe380809b00",
+    "name": "Rose Glow Manicure Pedicure Kit",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/2_63e187ba-0616-4b7a-a2fb-a8b51f911eb8.jpg?v=1749648275"
+  },
+  {
+    "id": "ff5cabf7-5815-4df1-8180-1a2e3bf107e5",
+    "name": "Ice Cream Mani Pedi Kit",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/01_3_027c8ed1-0272-40ad-881b-97e01482506e.jpg?v=1750685015"
+  },
+  {
+    "id": "2b8a9fbd-32d0-4f53-b60b-84d7b8c33607",
+    "name": "Mani Pedi Shampoo",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/1_9c247203-61ee-420e-9f7b-1bc2e243bd96.jpg?v=1749648207"
+  },
+  {
+    "id": "499ada45-195c-4a5d-ba9b-f8da361b3939",
+    "name": "Cuticle Conditioner",
+    "url": "https://cdn.shopify.com/s/files/1/0721/9976/6269/files/2_13_bb2c0b90-a7f4-40f5-93e2-50ea6f7a4f63.jpg?v=1749646104"
+  },
+  {
+    "id": "3de2d44d-fefd-4328-bcca-1f5b5f2df1dd",
+    "name": "Teen Pad 240MM",
+    "url": "https://images.pexels.com/photos/6724378/pexels-photo-6724378.jpeg?w=600&h=600&fit=crop"
+  },
+  {
+    "id": "4023374a-249e-40a2-87f1-5007e094ba62",
+    "name": "Bamboo Razors",
+    "url": "https://images.pexels.com/photos/3737605/pexels-photo-3737605.jpeg?w=600&h=600&fit=crop"
+  },
+  {
+    "id": "73a780dc-d399-473a-9c02-01b9b31814f7",
+    "name": "Menstrual Cups",
+    "url": "https://images.pexels.com/photos/6724410/pexels-photo-6724410.jpeg?w=600&h=600&fit=crop"
+  },
+  {
+    "id": "f8b5678c-e897-4010-bb5f-61456247022f",
+    "name": "Stand And Pee Sticks",
+    "url": "https://images.pexels.com/photos/3735709/pexels-photo-3735709.jpeg?w=600&h=600&fit=crop"
+  },
+  {
+    "id": "cbc5b952-f209-47de-bf41-a340165db266",
+    "name": "Tampons Without Applicator",
+    "url": "https://images.pexels.com/photos/6724360/pexels-photo-6724360.jpeg?w=600&h=600&fit=crop"
+  },
+  {
+    "id": "a1e72623-e953-492e-aabe-99c8a5786752",
+    "name": "Lip Lightening Scrub",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/TWC-all-Product-images-PNGLip-Lightening-Scrub.png?v=1679900718"
+  },
+  {
+    "id": "7fd127fe-e142-4417-902b-c35054f54200",
+    "name": "Skin Brightening Cream",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/TWC-all-Product-images-PNGBrightening-Cream.png?v=1679900737"
+  },
+  {
+    "id": "7735c030-0314-45da-9c94-844abae7e2d2",
+    "name": "Under Eye Cream",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/TWC-all-Product-images-PNGBrightening-Cream-copy.png?v=1679900754"
+  },
+  {
+    "id": "4b881374-b52c-49c7-9c3a-097f474cabae",
+    "name": "Coffee Body Scrub",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/TWC-all-Product-images-PNGCoffee-Body-Scrub.png?v=1679900249"
+  },
+  {
+    "id": "947a2161-e0e7-4b63-81b1-b16252622250",
+    "name": "Deodorant Lightening Roll On",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/TWC-all-Product-images-PNGRoll-on-deo.png?v=1679900700"
+  },
+  {
+    "id": "a4fbac74-8057-46cb-9a91-e1fd4adb20fd",
+    "name": "EDP Bawsy",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/BAWSYEAUDEPARFUM20ml2.jpg?v=1680946116"
+  },
+  {
+    "id": "dd3e68ef-5671-4a9d-b4b7-f52d30dba58f",
+    "name": "EDP Classy",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/ClassyEAUDEPARFUM20ml2.jpg?v=1680946131"
+  },
+  {
+    "id": "021675f1-9f7d-4bc7-8e9f-ef483245eddd",
+    "name": "EDP Gutsy",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/GutsyEAUDEPARFUM20ml2.jpg?v=1680945871"
+  },
+  {
+    "id": "b885025c-55f9-4e60-9e34-643b1167c4b0",
+    "name": "EDP Sassy",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/SASSYEAUDEPARFUM20ml2.jpg?v=1680946244"
+  },
+  {
+    "id": "397b7cc8-714a-49ef-bf47-5a1f1f1d5653",
+    "name": "Vibe Tribe Gift Set",
+    "url": "https://cdn.shopify.com/s/files/1/0722/3223/9419/products/TWCPerfumegiftboxPrimary1100x1100copy11.jpg?v=1679901911"
+  },
+  {
+    "id": "5d3c2809-5578-4ad8-a8c2-02ffbc3b309a",
+    "name": "Vitamin C Face Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-150-ml-pack-of-1-mamaearth-vitamin-c-foaming-face-wash-150-ml-28452690919471.jpg?v=1773035578"
+  },
+  {
+    "id": "48a198fb-3634-492f-8a58-d9da76941f75",
+    "name": "Ubtan Face Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-150-ml-mamaearth-ubtan-foaming-face-wash-150-ml-28452770873391.jpg?v=1773035667"
+  },
+  {
+    "id": "05d1fcdf-dbe2-47a9-bc36-2e40a495bab8",
+    "name": "Rice Face Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-50-ml-pack-of-1-mamaearth-rice-face-wash-with-rice-water-niacinamide-for-glass-skin-28452970135599.png?v=1773037269"
+  },
+  {
+    "id": "84aebb68-5894-40e3-9deb-156984ad60b9",
+    "name": "Tea Tree Face Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-150-ml-mamaearth-tea-tree-foaming-face-wash-150-ml-28452932649007.jpg?v=1773036520"
+  },
+  {
+    "id": "7d706a29-7116-4c74-b284-1b3d3af2caf2",
+    "name": "Multani Mitti Face Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/multani_mitti_50_ml.jpg?v=1773040606"
+  },
+  {
+    "id": "abab721c-c361-4818-8d02-94dc4aeae1ea",
+    "name": "Vitamin C Daily Glow Face Serum",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-10-ml-mamaearth-vitamin-c-daily-glow-face-serum-28452712841263.jpg?v=1773035586"
+  },
+  {
+    "id": "b0d7f159-5b0a-4ebf-9a16-ffc4eea3b60d",
+    "name": "Bye Bye Blemishes Face Cream",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-30-ml-mamaearth-bye-bye-blemishes-face-cream-for-reducing-pigmentation-blemishes-with-mulberry-extract-vitamin-c-30-ml-28452953718831.jpg?v=1773036904"
+  },
+  {
+    "id": "1fa8c736-1b13-4772-b257-d1011300d6ac",
+    "name": "Aloe Vera Gel 100% Pure",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-150-ml-pack-of-1-mamaearth-aloe-vera-gel-with-pure-aloe-vera-vitamin-e-for-skin-and-hair-300-ml-28452959551535.jpg?v=1773037046"
+  },
+  {
+    "id": "fd9486c4-d475-4c65-b074-d47e05efb8ef",
+    "name": "Vitamin C Sunscreen SPF 50",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-34-5-gm-pack-of-1-mamaearth-vitamin-c-daily-glow-sunscreen-with-vitamin-c-turmeric-for-sun-protection-glow-28452966105135.png?v=1773037161"
+  },
+  {
+    "id": "400c1a1b-802e-4f59-a69d-162c7579ba45",
+    "name": "Ubtan Body Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-bath-body-500-ml-ubtan-moisturizing-body-wash-28799636045871.jpg?v=1773041652"
+  },
+  {
+    "id": "7dda3044-d616-4976-9404-bef8a0a8674e",
+    "name": "Ubtan Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-300-ml-ubtan-sunscreen-body-lotion-28799641485359.jpg?v=1773041713"
+  },
+  {
+    "id": "ad1efbd2-7cb5-4644-90ab-acd89492bde4",
+    "name": "Aloe Vera Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-skin-care-300-ml-aloe-vera-sunscreen-body-lotion-28799436029999.jpg?v=1773037766"
+  },
+  {
+    "id": "1af52b74-eaa6-4af0-a37f-8e7e8b1e5308",
+    "name": "Onion Hair Oil",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-100-ml-pack-of-1-mamaearth-onion-hair-oil-for-hair-regrowth-with-redensyl-28452856004655.png?v=1773036017"
+  },
+  {
+    "id": "c1a033fa-4927-40a6-8016-c8b19c7d7654",
+    "name": "Rosemary Hair Growth Oil",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-100-ml-mamaearth-rosemary-hair-growth-oil-28452823728175.png?v=1773035719"
+  },
+  {
+    "id": "5586d2cd-30ab-479d-b2bd-514995d2df6d",
+    "name": "Onion Shampoo",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-50-ml-mamaearth-onion-shampoo-28452849483823.jpg?v=1773035936"
+  },
+  {
+    "id": "bc69c8fd-084f-41de-b72c-49fd1b01a633",
+    "name": "Tea Tree Shampoo",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-250-ml-mamaearth-tea-tree-shampoo-for-dandruff-free-hair-250-ml-28452785815599.jpg?v=1773035684"
+  },
+  {
+    "id": "875f75b2-bbae-4082-a203-0693ae7c5020",
+    "name": "Onion Conditioner",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-200-ml-mamaearth-onion-conditioner-for-hair-growth-and-hair-fall-control-with-onion-and-coconut-28452859183151.jpg?v=1773036047"
+  },
+  {
+    "id": "ddf993af-4604-4adf-a6b1-164ba993d8f7",
+    "name": "Onion Hair Mask",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-200-ml-mama-earth-onion-hair-mask-28799576211503.jpg?v=1773040078"
+  },
+  {
+    "id": "3e7422a1-a6c5-437c-b804-796a572c2353",
+    "name": "Onion Hair Serum",
+    "url": "https://cdn.shopify.com/s/files/1/0689/6815/3135/files/mamaearth-hair-care-100-ml-mamaearth-onion-hair-serum-with-onion-biotin-for-strong-frizz-free-hair-100-ml-28452851515439.jpg?v=1773035957"
+  },
+  {
+    "id": "eb063a35-499c-4ae2-a0af-987f5aeb7f67",
+    "name": "Love Story Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Love_Story-White-Background-1x1-Listing-Images-09.jpg?v=1753345453"
+  },
+  {
+    "id": "a6e9d67e-c32d-495d-aaa1-f806e82bee5c",
+    "name": "Five Elements Body Lotion 300ml",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Five-Elements-White-Background-1x1-Listing-Images-02.jpg?v=1755064159"
+  },
+  {
+    "id": "86475cde-9ade-4cad-a6c6-f7dc8c58db9f",
+    "name": "French Note Hand & Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/The-French-Note-White-Background-1x1-Listing-Images-13.jpg?v=1754381133"
+  },
+  {
+    "id": "f1d48e6d-0017-4a48-927b-f16b7a2a8ae8",
+    "name": "Earth Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Earth-White-Background-1x1-Listing-Images-02.jpg?v=1755002399"
+  },
+  {
+    "id": "12452974-9b13-43a2-b546-2c8e652e4e87",
+    "name": "Herbalist Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Herbalist-White-Background-1x1-Listing-Images-02.jpg?v=1754386693"
+  },
+  {
+    "id": "116329c7-72ad-4917-a31b-abf4a8d5d812",
+    "name": "Vivah Body Lotion 300ml",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Vivah-White-Background-1x1-Listing-Images-03.jpg?v=1754387274"
+  },
+  {
+    "id": "6ac4c2e3-f41d-4720-8ddd-ff63f591c0ed",
+    "name": "The Gulistan Hand & Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/The-Gulistan-White-Background-1x1-Listing-Images-05_67a05a0e-4d11-4147-a9b3-16090f6c5b70.jpg?v=1754290205"
+  },
+  {
+    "id": "ebcd75e7-68fc-40fe-a233-85331367bad7",
+    "name": "Indian Apothecary Hand & Body Lotion",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/TIA-White-Background-1x1-Listing-Images-02.jpg?v=1754386904"
+  },
+  {
+    "id": "924f3005-25d0-41f8-9f67-dde8faaed400",
+    "name": "Pharmacopia Body Lotion 250ml",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Pharmacopia-Argan-Oil-White-Background-1x1-Listing-Images-02.jpg?v=1755063825"
+  },
+  {
+    "id": "2348609c-7121-48a6-824f-7722d2ed7445",
+    "name": "Ignis Body Lotion 300ml",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Ignis-White-Background-1x1-Listing-Images-02.jpg?v=1755002761"
+  },
+  {
+    "id": "c2fc2cb2-a0cd-4d78-8d6a-d3b9b1d39c6f",
+    "name": "Vivah Body Cream 100gm",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/VIVAHBODYCREAMListing_Images-01.jpg?v=1762837869"
+  },
+  {
+    "id": "1dbc22ac-f1db-4c17-a479-4d27d4bf2bcb",
+    "name": "The French Note Body Cream 100gm",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/TheFrenchNoteBODYCREAMListing_Images-01.jpg?v=1761648868"
+  },
+  {
+    "id": "8cbb3732-b687-4bae-8d58-27103a72880a",
+    "name": "Indian Apothecary Body Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/TIA-White-Background-1x1-Listing-Images-01.jpg?v=1754386876"
+  },
+  {
+    "id": "db2e2dd1-f772-4887-a619-49264cb33c5f",
+    "name": "The Souq Body & Hand Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/The_Souq_Body_Hand_Wash_Listing_Image-08.jpg?v=1782128182"
+  },
+  {
+    "id": "ba33fdaf-d945-4484-9618-21c1f7ea1c5c",
+    "name": "Figure It Out Body & Hand Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Figure_It_Out_Body_Hand_Wash_Listing_Image-08.jpg?v=1782128095"
+  },
+  {
+    "id": "a68fbf2c-9a6f-4ad0-aae5-e147b5cdcdd9",
+    "name": "Bella Amalfi Body & Hand Wash",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Bella_Amalfi_Body_Hand_Wash_Listing_Image-08.jpg?v=1782128037"
+  },
+  {
+    "id": "7aa3afcd-fead-4e2b-a72d-e98d1c8c3631",
+    "name": "Around The World Body Mist",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/MIAMINIGHTSPERFUMEBODYMIST-Listing-Images-New-01.jpg?v=1766388013"
+  },
+  {
+    "id": "49c227e2-5352-4576-8713-bf9b58711497",
+    "name": "Love Story Body Yogurt",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Love_Story-White-Background-1x1-Listing-Images-26_e749f2a1-763a-451d-8f9b-a5a69e658c15.jpg?v=1753351367"
+  },
+  {
+    "id": "466f41d1-9025-4899-906e-0c7b0c29f775",
+    "name": "Lady In Silver Bath & Body Duo",
+    "url": "https://cdn.shopify.com/s/files/1/0039/7308/7330/files/Bath_BodyDuoGiftSet-LadyInSilver-WhiteWisteria-Listing-Images-01.jpg?v=1769498667"
+  }
+]

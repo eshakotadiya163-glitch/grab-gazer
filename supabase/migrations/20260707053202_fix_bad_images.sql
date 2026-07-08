@@ -1,0 +1,12 @@
+UPDATE public.products SET image_url = '/assets/images/products/kim-duo-silver.jpg' WHERE slug = 'kim-silver-duo';
+UPDATE public.products SET image_url = '/assets/images/products/mae-bb-coco.jpg' WHERE slug = 'mae-bb-coco';
+UPDATE public.products SET image_url = '/assets/images/products/mae-bl-vitc.jpg' WHERE slug = 'mae-bl-vitc';
+UPDATE public.products SET image_url = '/assets/images/products/mae2-cr-illuminate.jpg' WHERE slug = 'mae-cr-illuminate';
+UPDATE public.products SET image_url = '/assets/images/products/under-eye-cream.jpg' WHERE slug = 'mae-cr-undereye';
+UPDATE public.products SET image_url = '/assets/images/products/mae-mask-argan.jpg' WHERE slug = 'mae-mask-argan';
+UPDATE public.products SET image_url = '/assets/images/products/mae-mask-c3.jpg' WHERE slug = 'mae-mask-c3';
+UPDATE public.products SET image_url = '/assets/images/products/mae-mask-ubtan.jpg' WHERE slug = 'mae-mask-ubtan';
+UPDATE public.products SET image_url = '/assets/images/products/lip.jpg' WHERE slug = 'mae-mkp-lipbalm';
+UPDATE public.products SET image_url = '/assets/images/products/lip.jpg' WHERE slug = 'mae-mkp-lipcrayon';
+UPDATE public.products SET image_url = '/assets/images/products/mae-moist-rice.jpg' WHERE slug = 'mae-moist-rice';
+UPDATE public.products SET image_url = '/assets/images/products/mae-sun-aloe.jpg' WHERE slug = 'mae-sun-aloe';

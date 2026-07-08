@@ -1,0 +1,29 @@
+- **Lip Crayon Pink Burst** (undefined) -> Reason: No local file with high similarity score found.
+- **Strawberry Lip Balm** (undefined) -> Reason: No local file with high similarity score found.
+- **Green Tea & Lemon Grass Body Spa Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Gold Facial Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Fruit Facial Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Bright Pro Facial Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **D-tan Facial Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Lemon Clean Up Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Pore Tightening Toner** (undefined) -> Reason: No local file with high similarity score found.
+- **Citrus Energizing Cleansing Milk** (undefined) -> Reason: No local file with high similarity score found.
+- **Rose Deep Pore Cleansing Milk** (undefined) -> Reason: No local file with high similarity score found.
+- **Calming Massage Gel** (undefined) -> Reason: No local file with high similarity score found.
+- **White Chocolate Creme Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Dark Chocolate Creme Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Lemon Creme Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Gold Shine Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Pearl Shine Creme Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Chocolate Sugar Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Lemon Honey Hot Sugar Wax** (undefined) -> Reason: No local file with high similarity score found.
+- **Pre Waxing Gel** (undefined) -> Reason: No local file with high similarity score found.
+- **Post Waxing Oil** (undefined) -> Reason: No local file with high similarity score found.
+- **Lemon Bright Manicure Pedicure Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Marine Fresh Manicure Pedicure Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Rose Glow Manicure Pedicure Kit** (undefined) -> Reason: No local file with high similarity score found.
+- **Teen Pad 240MM** (undefined) -> Reason: No local file with high similarity score found.
+- **Bamboo Razors** (undefined) -> Reason: No local file with high similarity score found.
+- **Menstrual Cups** (undefined) -> Reason: No local file with high similarity score found.
+- **Stand And Pee Sticks** (undefined) -> Reason: No local file with high similarity score found.
+- **Tampons Without Applicator** (undefined) -> Reason: No local file with high similarity score found.
