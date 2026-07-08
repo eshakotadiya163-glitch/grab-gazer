@@ -3,6 +3,7 @@ import { Star, Heart, ShoppingBag } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useCart } from "@/components/cart-context";
+import { Button } from "@/components/ui/button";
 
 export interface Product {
   id: string;

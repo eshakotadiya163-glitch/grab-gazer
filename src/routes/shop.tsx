@@ -139,7 +139,7 @@ function ShopPage() {
     } else if (search.sort === "price_desc") {
       result.sort((a, b) => b.price - a.price);
     } else if (search.sort === "rating") {
-      result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      result.sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0));
     } else if (search.sort === "new") {
       // simulate newness by reversing
       result.reverse();

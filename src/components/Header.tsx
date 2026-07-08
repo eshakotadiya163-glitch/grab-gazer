@@ -54,7 +54,7 @@ export function Header() {
               <Link to="/shop" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">Categories</Link>
               <Link to="/shop" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">Brands</Link>
               <Link to="/blog" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">Beauty Advice</Link>
-              <Link to="/shop?sort=new" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">New Launches</Link>
+              <Link to="/shop" search={{ sort: "new" }} className="text-sm font-semibold text-foreground hover:text-primary transition-colors">New Launches</Link>
             </nav>
 
             {/* Full Width Search Bar */}
@@ -73,7 +73,7 @@ export function Header() {
                 <input
                   type="search"
                   name="q"
-                  placeholder="Search on Nykaa"
+                  placeholder="Search on TWC"
                   className="h-10 w-full rounded-md border border-input bg-muted/30 pl-10 pr-4 text-sm outline-none transition-colors focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </form>
@@ -124,7 +124,7 @@ export function Header() {
             <input
               type="search"
               name="q"
-              placeholder="Search on Nykaa"
+              placeholder="Search on TWC"
               className="h-10 w-full rounded-md border border-input bg-muted/30 pl-10 pr-4 text-sm outline-none focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary"
             />
           </form>

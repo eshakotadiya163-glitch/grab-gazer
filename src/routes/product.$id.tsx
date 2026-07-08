@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Star, Heart, ShoppingBag, Check, ChevronRight, Search } from "lucide-react";
+import { Star, Heart, ShoppingBag, Check, ChevronRight, Search, Truck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-context";
